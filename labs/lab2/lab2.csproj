@@ -33,17 +33,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\..\..\..\Downloads\WeatherConnector\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\WeatherConnector\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WeatherConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\Downloads\WeatherConnector\WeatherConnector.dll</HintPath>
+      <HintPath>..\..\WeatherConnector\WeatherConnector.dll</HintPath>
     </Reference>
     <Reference Include="WeatherNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\Downloads\WeatherConnector\WeatherNet.dll</HintPath>
+      <HintPath>..\..\WeatherConnector\WeatherNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
