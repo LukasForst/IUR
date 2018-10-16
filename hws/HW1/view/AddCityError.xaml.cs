@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace courseApplication.view
+namespace HW1.view
 {
     public partial class AddCityError : Window
     {

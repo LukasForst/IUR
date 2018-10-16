@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace courseApplication.Properties
+namespace HW1.Properties
 {
 
 

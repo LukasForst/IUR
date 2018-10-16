@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace courseApplication.provider
+namespace HW1.provider
 {
     public class CitiesWeatherProvider
     {

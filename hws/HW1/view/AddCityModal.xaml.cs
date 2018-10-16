@@ -1,8 +1,8 @@
 using System.Windows;
 using System.Windows.Input;
-using courseApplication.provider;
+using HW1.provider;
 
-namespace courseApplication.view
+namespace HW1.view
 {
     public partial class AddCityModal : Window
     {

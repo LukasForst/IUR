@@ -5,7 +5,7 @@ using WeatherNet;
 using WeatherNet.Clients;
 using WeatherNet.Model;
 
-namespace courseApplication.provider
+namespace HW1.provider
 {
     public class WeatherProvider
     {

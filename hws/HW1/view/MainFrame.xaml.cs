@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using courseApplication.provider;
+using HW1.provider;
 
-namespace courseApplication.view
+namespace HW1.view
 {
     /// <summary>
     /// Interaction logic for MainWindow2.xaml

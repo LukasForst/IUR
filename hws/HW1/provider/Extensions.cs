@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace courseApplication.provider
+namespace HW1.provider
 {
     public static class Extensions
     {
