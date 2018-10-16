@@ -1,0 +1,90 @@
+﻿<Window x:Class="courseApplication.view.MainFrame"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:courseApplication"
+        mc:Ignorable="d"
+        Title="Current Weather" Height="250" Width="500">
+
+    <Grid Margin="20">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+
+        <Label Name="PlaceLabel" Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">Místo</Label>
+
+        <ComboBox Name="CitySelection" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0" MinWidth="100"
+                  SelectionChanged="CitySelection_OnSelectionChanged" />
+
+        <Button Name="ManageCitiesButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"
+                Click="ManageCitiesButton_OnClick">
+            Manage Cities
+        </Button>
+
+
+        <TabControl Name="TabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="0,20,0,0" SelectedIndex="0">
+            <TabItem Name="CurrentTabItem" Header="Current">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0">Teplota</Label>
+                    <Label Name="CurrentTemperatureLabel" Grid.Row="0" Grid.Column="1">-</Label>
+
+                    <Label Grid.Row="1" Grid.Column="0">Vlhkost</Label>
+                    <Label Name="CurrentHumidityLabel" Grid.Row="1" Grid.Column="1">-</Label>
+                </Grid>
+            </TabItem>
+            <TabItem Name="TomorrowTabItem" Header="Tomorrow">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0">Teplota</Label>
+                    <Label Name="TomorrowTemperatureLabel" Grid.Row="0" Grid.Column="1">-</Label>
+
+                    <Label Grid.Row="1" Grid.Column="0">Vlhkost</Label>
+                    <Label Name="TomorrowHumidityLabel" Grid.Row="1" Grid.Column="1">-</Label>
+                </Grid>
+            </TabItem>
+            <TabItem Name="NextDayTabItem" Header="Next Day">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0">Teplota</Label>
+                    <Label Name="NextDayTemperatureLabel" Grid.Row="0" Grid.Column="1">-</Label>
+
+                    <Label Grid.Row="1" Grid.Column="0">Vlhkost</Label>
+                    <Label Name="NextDayHumidityLabel" Grid.Row="1" Grid.Column="1">-</Label>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
