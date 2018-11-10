@@ -19,34 +19,18 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <RadioButton Grid.Row="0" Content="Red" IsChecked="False">
+            <RadioButton Grid.Row="0" Content="Red" IsChecked="True">
                 <RadioButton.Triggers>
                     <EventTrigger RoutedEvent="RadioButton.Checked">
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation To="Red"
-                                                Storyboard.TargetName="RedEllipse"
+                                                Storyboard.TargetName="Light"
                                                 Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
                                                 FillBehavior="HoldEnd"
                                                 Duration="0:0:1" />
                                 <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="YellowEllipse"
-                                                 Storyboard.TargetProperty="(Canvas.Top)"
-                                                 FillBehavior="HoldEnd"
-                                                 Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="RadioButton.Unchecked">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="White"
-                                                Storyboard.TargetName="RedEllipse"
-                                                Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:1" />
-                                <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="RedEllipse"
+                                                 Storyboard.TargetName="Light"
                                                  Storyboard.TargetProperty="(Canvas.Top)"
                                                  FillBehavior="HoldEnd"
                                                  Duration="0:0:1" />
@@ -63,28 +47,12 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation To="Yellow"
-                                                Storyboard.TargetName="YellowEllipse"
+                                                Storyboard.TargetName="Light"
                                                 Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
                                                 FillBehavior="HoldEnd"
                                                 Duration="0:0:1" />
-                                <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="YellowEllipse"
-                                                 Storyboard.TargetProperty="(Canvas.Top)"
-                                                 FillBehavior="HoldEnd"
-                                                 Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="RadioButton.Unchecked">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="White"
-                                                Storyboard.TargetName="YellowEllipse"
-                                                Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:1" />
-                                <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="YellowEllipse"
+                                <DoubleAnimation To="100"
+                                                 Storyboard.TargetName="Light"
                                                  Storyboard.TargetProperty="(Canvas.Top)"
                                                  FillBehavior="HoldEnd"
                                                  Duration="0:0:1" />
@@ -94,34 +62,18 @@
                 </RadioButton.Triggers>
             </RadioButton>
 
-            <RadioButton Grid.Row="2" Content="Green" IsChecked="True">
+            <RadioButton Grid.Row="2" Content="Green" IsChecked="False">
                 <RadioButton.Triggers>
                     <EventTrigger RoutedEvent="RadioButton.Checked">
                         <BeginStoryboard>
                             <Storyboard>
                                 <ColorAnimation To="Green"
-                                                Storyboard.TargetName="GreenEllipse"
+                                                Storyboard.TargetName="Light"
                                                 Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
                                                 FillBehavior="HoldEnd"
                                                 Duration="0:0:1" />
-                                <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="GreenEllipse"
-                                                 Storyboard.TargetProperty="(Canvas.Top)"
-                                                 FillBehavior="HoldEnd"
-                                                 Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="RadioButton.Unchecked">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="White"
-                                                Storyboard.TargetName="GreenEllipse"
-                                                Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:1" />
-                                <DoubleAnimation To="0"
-                                                 Storyboard.TargetName="GreenEllipse"
+                                <DoubleAnimation To="200"
+                                                 Storyboard.TargetName="Light"
                                                  Storyboard.TargetProperty="(Canvas.Top)"
                                                  FillBehavior="HoldEnd"
                                                  Duration="0:0:1" />
@@ -133,34 +85,11 @@
 
         </Grid>
 
-        <Grid Grid.Column="1" VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <Canvas Grid.Row="0" Height="105" VerticalAlignment="Center">
-                <Ellipse x:Name="RedEllipse" Fill="White"
-                         Canvas.Top="0"
-                         Width="100"
-                         Height="100" />
-            </Canvas>
-
-            <Canvas Grid.Row="1" Height="105" VerticalAlignment="Center">
-                <Ellipse x:Name="YellowEllipse" Fill="White"
-                         Canvas.Top="0"
-                         Width="100"
-                         Height="100" />
-            </Canvas>
-
-
-            <Canvas Grid.Row="2" Height="105" VerticalAlignment="Center">
-                <Ellipse x:Name="GreenEllipse" Fill="Green"
-                         Canvas.Top="0"
-                         Width="100"
-                         Height="100" />
-            </Canvas>
-        </Grid>
+        <Canvas Grid.Column="1" Height="105" VerticalAlignment="Top" Margin="20,20,20,20">
+            <Ellipse x:Name="Light" Fill="Red"
+                     Canvas.Top="0"
+                     Width="100"
+                     Height="100" />
+        </Canvas>
     </Grid>
 </Window>
