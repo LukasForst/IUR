@@ -3,28 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:IUR_p07"
+        xmlns:viewModels="clr-namespace:IUR_p07.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:ViewModel />
+    </Window.DataContext>
+
     <DockPanel>
-        
+
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
-            <TextBox Width="200"></TextBox>
-            <Button Content="Add Location"/>
+            <TextBox Width="200" Text="{Binding NewLocation}" />
+            <Button Content="Add Location" Command="{Binding AddCommand}" />
         </StackPanel>
-        <ListBox ItemsSource="{Binding WeatherCards}" >
-            <!--
-            Use these properties
-            
-            <ListBox.ItemsPanel>
-            </ListBox.ItemsPanel>
+        <ListBox ItemsSource="{Binding WeatherCards}" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="ChangeLocation" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <local:WeatherCustomControl City="{Binding Location}" Temperature="{Binding Temperature}"
+                                                    Humidity="{Binding Humidity}" Conditions="{Binding Conditions}"
+                                                    Icon="{Binding IconPath}" Width="200" />
+                    </StackPanel>
+                </DataTemplate>
             </ListBox.ItemTemplate>
-            
-            use following custom control binding and dependency properties
-            <local:WeatherCustomControl City="{Binding Location}" Temperature="{Binding Temperature}" Humidity="{Binding Humidity}" Conditions="{Binding Conditions}" Icon="{Binding IconPath}" Width="200"></local:WeatherCustomControl>
-            
-            -->
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel MaxWidth="800" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
     </DockPanel>
 </Window>
