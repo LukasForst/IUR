@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IUR_p05", "IUR_p05\IUR_p05.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW5", "HW5\HW5.csproj", "{264AAD65-E470-41E9-A740-A0DD429D90F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IUR-p07", "IUR-p07-assignment-template\IUR-p07.csproj", "{93A661E8-1A98-4269-AC06-A9A804219CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{264AAD65-E470-41E9-A740-A0DD429D90F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{264AAD65-E470-41E9-A740-A0DD429D90F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264AAD65-E470-41E9-A740-A0DD429D90F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A661E8-1A98-4269-AC06-A9A804219CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A661E8-1A98-4269-AC06-A9A804219CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A661E8-1A98-4269-AC06-A9A804219CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A661E8-1A98-4269-AC06-A9A804219CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
