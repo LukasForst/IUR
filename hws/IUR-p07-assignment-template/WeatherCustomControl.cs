@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
@@ -45,22 +47,6 @@ namespace IUR_p07
             set => SetValue(HumidityProperty, value);
         }
 
-        public static readonly DependencyProperty TempMinProperty = DependencyProperty.Register(nameof(TempMin), typeof(int), typeof(WeatherCustomControl));
-
-        public int TempMin
-        {
-            get => (int) GetValue(TempMinProperty);
-            set => SetValue(TempMinProperty, value);
-        }
-
-        public static readonly DependencyProperty TempMaxProperty = DependencyProperty.Register(nameof(TempMax), typeof(int), typeof(WeatherCustomControl));
-
-        public int TempMax
-        {
-            get => (int) GetValue(TempMaxProperty);
-            set => SetValue(TempMaxProperty, value);
-        }
-
         public static readonly DependencyProperty ConditionsProperty =
             DependencyProperty.Register(nameof(Conditions), typeof(string), typeof(WeatherCustomControl));
 
@@ -70,12 +56,13 @@ namespace IUR_p07
             set => SetValue(ConditionsProperty, value);
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(string), typeof(WeatherCustomControl));
+        public static readonly DependencyProperty
+            IconPathProperty = DependencyProperty.Register(nameof(IconPath), typeof(string), typeof(WeatherCustomControl));
 
-        public string Icon
+        public string IconPath
         {
-            get => (string) GetValue(IconProperty);
-            set => SetValue(IconProperty, value);
+            get => (string) GetValue(IconPathProperty);
+            set => SetValue(IconPathProperty, value);
         }
     }
 }

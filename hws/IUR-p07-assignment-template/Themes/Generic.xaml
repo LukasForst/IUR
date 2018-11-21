@@ -19,13 +19,6 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
 
                         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <StackPanel
-                                Visibility="{TemplateBinding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=False}">
-                                <Label Content="City:" Margin="20" />
-                                <TextBox Text="{TemplateBinding City}" Margin="20, 0" />
-                                <Button Content="Remove" Command="{TemplateBinding RemoveCommand}" CommandParameter="{Binding}" Margin="20"/>
-                            </StackPanel>
-
                             <StackPanel Visibility="{TemplateBinding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
                                 <Label Content="{TemplateBinding City}" FontSize="24" FontWeight="Bold" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
@@ -38,9 +31,17 @@
                                         <Label Content="%" />
                                     </StackPanel>
                                 </StackPanel>
-                                <Image Source="{TemplateBinding Icon, Converter={StaticResource WeatherApiImageSourceConverter}}"
-                                       MaxWidth="50" />
+                                <Image Source="{TemplateBinding IconPath, Converter={StaticResource WeatherApiImageSourceConverter}}" MaxWidth="30" />
                                 <Label Content="{TemplateBinding Conditions}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Visibility="{TemplateBinding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=False}">
+                                <Label Content="City:" Margin="5" />
+                                <TextBox
+                                    Text="{Binding City, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WeatherCustomControl}},Mode=TwoWay}"
+                                    Margin="10" />
+                                <Button Content="Remove" Command="{TemplateBinding RemoveCommand}" CommandParameter="{Binding}" Margin="10" />
                             </StackPanel>
 
                         </StackPanel>

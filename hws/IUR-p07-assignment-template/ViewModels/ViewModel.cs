@@ -12,7 +12,18 @@ namespace IUR_p07.ViewModels
 
         private readonly List<string> cities = new List<string> {"Praha", "Brno", "Ostrava", "Jihlava", "Znojmo", "Vimperk"};
 
-        public string NewLocation { get; set; }
+        private string newLocation;
+        public string NewLocation
+        {
+            get => newLocation;
+            set
+            {
+                if(newLocation == value) return;
+                newLocation = value;
+                OnPropertyChanged(nameof(NewLocation));
+            }
+            
+        }
 
         public ViewModel()
         {
@@ -20,8 +31,12 @@ namespace IUR_p07.ViewModels
             cities.ForEach(AddCity);
         }
 
-
-        public RelayCommand<WeatherCardViewModel> AddCommand => new RelayCommand<WeatherCardViewModel>(x => AddCity(NewLocation));
+        public RelayCommand<WeatherCardViewModel> AddCommand => new RelayCommand<WeatherCardViewModel>(x =>
+        {
+            AddCity(NewLocation);
+            NewLocation = string.Empty;
+        });
+        
         public RelayCommand<WeatherCardViewModel> DeleteCommand => new RelayCommand<WeatherCardViewModel>(x => WeatherCards.Remove(x));
 
         private void AddCity(string city)
@@ -37,7 +52,20 @@ namespace IUR_p07.ViewModels
                 Conditions = result.Item.Title,
                 IconPath = result.Item.Icon
             };
+            location.ModelChanged += UpdateForecast;
             WeatherCards.Add(location);
         }
+        
+        private void UpdateForecast(WeatherCardViewModel card)
+        {
+            var result = CurrentWeather.GetByCityName(card.Location, "Czechia", "en", "metric");
+            if (!result.Success) return;
+            
+            card.Temperature = result.Item.Temp;
+            card.Humidity = result.Item.Humidity;
+            card.Conditions = result.Item.Title;
+            card.IconPath = result.Item.Icon;
+        }
+
     }
 }

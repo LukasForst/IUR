@@ -23,11 +23,11 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <local:WeatherCustomControl City="{Binding Location}"
-                                                    Temperature="{Binding Temperature}"
-                                                    Humidity="{Binding Humidity}"
-                                                    Conditions="{Binding Conditions}"
-                                                    Icon="{Binding IconPath}"
+                        <local:WeatherCustomControl City="{Binding Location, Mode=TwoWay}"
+                                                    Temperature="{Binding Temperature, Mode=TwoWay}"
+                                                    Humidity="{Binding Humidity, Mode=TwoWay}"
+                                                    Conditions="{Binding Conditions, Mode=TwoWay}"
+                                                    IconPath="{Binding IconPath, Mode=TwoWay}"
                                                     RemoveCommand="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DeleteCommand}"
                                                     Width="200" />
                     </StackPanel>
