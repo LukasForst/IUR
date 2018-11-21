@@ -69,7 +69,7 @@ namespace IUR_p07.ViewModels
             {
                 if(iconPath == value) return;
                 iconPath = value;
-                OnPropertyChanged(IconPath);
+                OnPropertyChanged(nameof(IconPath));
             }
         }
 
