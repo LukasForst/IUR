@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace IUR_p07
 {
@@ -8,6 +9,15 @@ namespace IUR_p07
         static WeatherCustomControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WeatherCustomControl), new FrameworkPropertyMetadata(typeof(WeatherCustomControl)));
+        }
+
+        public static readonly DependencyProperty RemoveCommandProperty = DependencyProperty.Register(nameof(RemoveCommand), typeof(ICommand),
+            typeof(WeatherCustomControl), new PropertyMetadata(default(ICommand)));
+
+        public ICommand RemoveCommand
+        {
+            get => (ICommand) GetValue(RemoveCommandProperty);
+            set => SetValue(RemoveCommandProperty, value);
         }
 
         public static readonly DependencyProperty CityProperty = DependencyProperty.Register(nameof(City), typeof(string), typeof(WeatherCustomControl));

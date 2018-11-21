@@ -3,12 +3,12 @@ using System.Windows.Input;
 
 namespace IUR_p07.Support
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand<T> : ICommand where T : class 
     {
-        private readonly Predicate<object> canExecute;
-        private readonly Action<object> execute;
+        private readonly Predicate<T> canExecute;
+        private readonly Action<T> execute;
 
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
         {
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
@@ -16,7 +16,7 @@ namespace IUR_p07.Support
 
         public bool CanExecute(object parameter)
         {
-            return canExecute?.Invoke(parameter) ?? true;
+            return canExecute?.Invoke((T) parameter) ?? true;
         }
 
         public event EventHandler CanExecuteChanged
@@ -27,7 +27,13 @@ namespace IUR_p07.Support
 
         public void Execute(object parameter)
         {
-            execute(parameter);
+            execute((T) parameter);
+        }
+
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

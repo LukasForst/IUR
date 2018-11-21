@@ -19,19 +19,17 @@
             <TextBox Width="200" Text="{Binding NewLocation}" />
             <Button Content="Add Location" Command="{Binding AddCommand}" />
         </StackPanel>
-        <ListBox ItemsSource="{Binding WeatherCards}" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="ChangeLocation" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
+        <ListBox ItemsSource="{Binding WeatherCards}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <local:WeatherCustomControl City="{Binding Location}" Temperature="{Binding Temperature}"
-                                                    Humidity="{Binding Humidity}" Conditions="{Binding Conditions}"
-                                                    Icon="{Binding IconPath}" Width="200" />
+                        <local:WeatherCustomControl City="{Binding Location}"
+                                                    Temperature="{Binding Temperature}"
+                                                    Humidity="{Binding Humidity}"
+                                                    Conditions="{Binding Conditions}"
+                                                    Icon="{Binding IconPath}"
+                                                    RemoveCommand="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=DataContext.DeleteCommand}"
+                                                    Width="200" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
