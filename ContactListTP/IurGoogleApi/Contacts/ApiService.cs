@@ -38,8 +38,8 @@ namespace IurGoogleApi.Contacts
             var contactToCreate = new Person
             {
                 Names = new List<Name> {new Name {GivenName = personDto.FirstName, FamilyName = personDto.LastName}},
-                EmailAddresses = personDto.EmailAddresses.Select(x => new EmailAddress {DisplayName = x}).ToList(),
-                PhoneNumbers = personDto.PhoneNumbers.Select(x => new PhoneNumber {CanonicalForm = x, FormattedType = x}).ToList()
+                EmailAddresses = personDto.EmailAddresses.Select(x => new EmailAddress {Value = x}).ToList(),
+                PhoneNumbers = personDto.PhoneNumbers.Select(x => new PhoneNumber {Value = x}).ToList()
             };
 
             return new PeopleResource.CreateContactRequest(CreateService(), contactToCreate).Execute();

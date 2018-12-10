@@ -8,9 +8,18 @@ namespace IurGoogleApi.Credentials
 {
     public class CredentialsProvider
     {
+        private const string DefaultSecretFilePath = "client_id.json";
+
+        private readonly string pathToClientSecrets;
+
+        public CredentialsProvider(string pathToClientSecrets = null)
+        {
+            this.pathToClientSecrets = pathToClientSecrets ?? DefaultSecretFilePath;
+        }
+
         public UserCredential ObtainCredential()
         {
-            using (var stream = new FileStream("client_id.json", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(pathToClientSecrets, FileMode.Open, FileAccess.Read))
             {
                 return GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
