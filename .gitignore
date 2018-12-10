@@ -691,3 +691,7 @@ $RECYCLE.BIN/
 WeatherConnector/
 
 client_id.json
+
+*.pdf
+
+*.zip
