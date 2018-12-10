@@ -689,3 +689,5 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/rider,csharp,windows,visualstudio,jetbrains+all,jetbrains+iml
 
 WeatherConnector/
+
+client_id.json

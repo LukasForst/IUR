@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactListTP", "ContactListTP.csproj", "{B4061661-D06C-4A66-83E0-2D6D43719477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playgrount", "Playgrount\Playgrount.csproj", "{34BB6CC7-971E-43BC-99D4-3F8787797B7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IurGoogleApi", "IurGoogleApi\IurGoogleApi.csproj", "{F4575B50-7BEB-4421-8118-0CE1F9C65AFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4061661-D06C-4A66-83E0-2D6D43719477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4061661-D06C-4A66-83E0-2D6D43719477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4061661-D06C-4A66-83E0-2D6D43719477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4061661-D06C-4A66-83E0-2D6D43719477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34BB6CC7-971E-43BC-99D4-3F8787797B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34BB6CC7-971E-43BC-99D4-3F8787797B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34BB6CC7-971E-43BC-99D4-3F8787797B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34BB6CC7-971E-43BC-99D4-3F8787797B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4575B50-7BEB-4421-8118-0CE1F9C65AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4575B50-7BEB-4421-8118-0CE1F9C65AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4575B50-7BEB-4421-8118-0CE1F9C65AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4575B50-7BEB-4421-8118-0CE1F9C65AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
