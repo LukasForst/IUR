@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Google.Apis.PeopleService.v1.Data;
@@ -18,6 +19,8 @@ namespace IurGoogleApi.Contacts
 
         public IPersonDto AddContact(IPersonDto personDto) => Convert(apiService.AddPerson(personDto));
 
+        public bool RemoveContact(IPersonDto personDto) => throw new NotImplementedException();
+        
         private IPersonDto Convert(Person person) => new PersonDto
         {
             FirstName = person.Names.Count > 0 ? person.Names.First().GivenName : "n/a",

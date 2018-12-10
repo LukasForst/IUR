@@ -6,9 +6,9 @@
         xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <DockPanel d:DataContext="{d:DesignInstance Type=viewModel:MyViewModel, IsDesignTimeCreatable=True}">
+    <DockPanel d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel, IsDesignTimeCreatable=True}">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
-            <Label Width="200" Content="{Binding NewLocation}" />
+            <!-- <Label Width="200" Content="{Binding NewLocation}" /> -->
         </StackPanel>
     </DockPanel>
 

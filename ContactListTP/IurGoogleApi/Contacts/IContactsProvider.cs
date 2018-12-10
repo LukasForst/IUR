@@ -8,5 +8,7 @@ namespace IurGoogleApi.Contacts
         IReadOnlyCollection<IPersonDto> GetContacts();
         
         IPersonDto AddContact(IPersonDto personDto);
+
+        bool RemoveContact(IPersonDto personDto);
     }
 }

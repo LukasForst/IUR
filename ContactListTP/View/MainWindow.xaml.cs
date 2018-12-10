@@ -9,7 +9,7 @@ namespace ContactListTP.View
     public partial class MainWindow
     {
         
-        public MainWindow(MyViewModel vm)
+        public MainWindow(ContactListViewModel vm)
         {
             DataContext = vm;
             InitializeComponent();

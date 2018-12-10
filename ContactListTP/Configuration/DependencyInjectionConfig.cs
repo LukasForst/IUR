@@ -1,5 +1,6 @@
 using ContactListTP.ViewModel;
 using IurGoogleApi.Contacts;
+using IurGoogleApi.Credentials;
 using Ninject.Modules;
 
 namespace ContactListTP.Configuration
@@ -9,8 +10,10 @@ namespace ContactListTP.Configuration
         public override void Load()
         {
             Bind<IContactsProvider>().To<ContactsProvider>().InSingletonScope();
+            Bind<CredentialsProvider>().ToMethod(x => new CredentialsProvider()).InSingletonScope();
 
-            Bind<MyViewModel>().ToMethod(x => new MyViewModel {NewLocation = "Hello World!"}).InTransientScope();
+            Bind<ContactListViewModel>().ToSelf().InTransientScope();
+            Bind<AddContactViewModel>().ToSelf().InTransientScope();
         }
     }
 }
