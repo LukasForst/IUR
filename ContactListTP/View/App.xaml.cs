@@ -4,19 +4,23 @@ using Ninject;
 
 namespace ContactListTP.View
 {
+    /// <inheritdoc />
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
-        public App()
-        {   
-        }
+        private IKernel iocKernel;
         
         protected override void OnStartup(StartupEventArgs e)
         {
-            IocKernel.Initialize(new DependencyInjectionConfig());
             base.OnStartup(e);
+
+            iocKernel = new StandardKernel();
+            iocKernel.Load(new DependencyInjectionConfig());
+
+            Current.MainWindow = iocKernel.Get<MainWindow>();
+            Current.MainWindow.Show();
         }
     }
 }

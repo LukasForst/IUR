@@ -1,4 +1,4 @@
-﻿using IurGoogleApi.Contacts;
+﻿using ContactListTP.ViewModel;
 
 namespace ContactListTP.View
 {
@@ -8,8 +8,10 @@ namespace ContactListTP.View
     /// </summary>
     public partial class MainWindow
     {
-        public MainWindow(IContactsProvider contactsProvider)
+        
+        public MainWindow(MyViewModel vm)
         {
+            DataContext = vm;
             InitializeComponent();
         }
     }
