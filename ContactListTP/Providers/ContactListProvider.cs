@@ -15,8 +15,8 @@ namespace ContactListTP.Providers
             this.contactsProvider = contactsProvider;
         }
 
-        public IReadOnlyCollection<ContactDetailViewModel> BuildContactDetails() =>
-            contactsProvider.GetContacts().Select(x => new ContactDetailViewModel(x)).ToList();
+        public IReadOnlyCollection<ContactListItemViewModel> BuildContactList() =>
+            contactsProvider.GetContacts().Select(x => new ContactListItemViewModel(x)).ToList();
 
         public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel)
         {
@@ -31,7 +31,7 @@ namespace ContactListTP.Providers
             return new ContactDetailViewModel(personDto);
         }
 
-        public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
+        public IReadOnlyCollection<ContactListItemViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
         {
             contactsProvider.RemoveContact(new PersonDto
             {
@@ -41,7 +41,7 @@ namespace ContactListTP.Providers
                 PhoneNumbers = new List<string> {contactToRemove.PhoneNumber}
             });
 
-            return BuildContactDetails();
+            return BuildContactList();
         }
     }
 }

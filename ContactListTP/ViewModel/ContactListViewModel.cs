@@ -9,26 +9,26 @@ namespace ContactListTP.ViewModel
     {
         private readonly ContactListProvider contactListProvider;
 
-        private int selectedContactDetailIndex;
-        private ContactDetailViewModel selectedContactDetail;
+        private int selectedContactItemIndex;
+        private ContactListItemViewModel selectedContactItem;
 
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
             this.contactListProvider = contactListProvider;
         }
 
-        public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();
+        public ObservableCollection<ContactListItemViewModel> ContactList { get; set; } = new ObservableCollection<ContactListItemViewModel>();
 
-        public int SelectedContactDetailIndex
+        public int SelectedContactItemIndex
         {
-            get => selectedContactDetailIndex;
-            set => (selectedContactDetailIndex = value).Also(() => OnPropertyChanged(nameof(SelectedContactDetailIndex)));
+            get => selectedContactItemIndex;
+            set => (selectedContactItemIndex = value).Also(() => OnPropertyChanged(nameof(SelectedContactItemIndex)));
         }
 
-        public ContactDetailViewModel SelectedContactDetail
+        public ContactListItemViewModel SelectedContactItem
         {
-            get => selectedContactDetail;
-            set => (selectedContactDetail = value).Also(() => OnPropertyChanged(nameof(SelectedContactDetail)));
+            get => selectedContactItem;
+            set => (selectedContactItem = value).Also(() => OnPropertyChanged(nameof(SelectedContactItem)));
         }
 
         public Command<ContactDetailViewModel> DeleteCommand =>
@@ -36,7 +36,7 @@ namespace ContactListTP.ViewModel
 
         private void UpdateContactList()
         {
-            ContactList = new ObservableCollection<ContactDetailViewModel>(contactListProvider.BuildContactDetails());
+            ContactList = new ObservableCollection<ContactListItemViewModel>(contactListProvider.BuildContactList());
         }
     }
 }
