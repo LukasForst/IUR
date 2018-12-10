@@ -1,5 +1,4 @@
-﻿
-namespace ContactListTP
+﻿namespace ContactListTP
 {
     /// <summary>
     /// Interaction logic for App.xaml

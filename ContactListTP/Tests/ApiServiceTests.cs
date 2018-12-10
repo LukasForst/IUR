@@ -12,17 +12,17 @@ namespace Tests
     public class ApiServiceTests
     {
         private const string PathToSecretes = "";
-        
+
         private CredentialsProvider credentialsProvider;
         private ApiService apiService;
-        
+
         [SetUp]
         public void SetUp()
         {
             credentialsProvider = new CredentialsProvider(PathToSecretes);
             apiService = new ApiService(credentialsProvider);
         }
-        
+
         [Test]
         public void GetContacts()
         {
@@ -30,7 +30,7 @@ namespace Tests
             foreach (var person in people)
             {
                 Console.Write(person.Names != null ? person.Names[0].DisplayName + "  " : "n/a  ");
-                Console.Write(person.EmailAddresses.FirstOrDefault()?.Value ?? "n/a" + "  " );
+                Console.Write(person.EmailAddresses.FirstOrDefault()?.Value ?? "n/a" + "  ");
                 Console.WriteLine(person.PhoneNumbers?.FirstOrDefault()?.Value ?? "n/a");
             }
         }
@@ -47,7 +47,7 @@ namespace Tests
             };
             var person = apiService.AddPerson(personDto);
             Console.Write(person.Names != null ? person.Names[0].DisplayName + "  " : "n/a  ");
-            Console.Write(person.EmailAddresses.FirstOrDefault()?.Value ?? "n/a" + "  " );
+            Console.Write(person.EmailAddresses.FirstOrDefault()?.Value ?? "n/a" + "  ");
             Console.WriteLine(person.PhoneNumbers?.FirstOrDefault()?.Value ?? "n/a");
         }
     }
