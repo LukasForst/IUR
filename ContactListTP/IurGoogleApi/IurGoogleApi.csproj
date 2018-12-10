@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Contacts\ApiService.cs" />
     <Compile Include="Contacts\ContactsProvider.cs" />
+    <Compile Include="Contacts\IContactsProvider.cs" />
     <Compile Include="Credentials\CredentialsProvider.cs" />
     <Compile Include="Dto\IPersonDto.cs" />
     <Compile Include="Dto\PersonDto.cs" />

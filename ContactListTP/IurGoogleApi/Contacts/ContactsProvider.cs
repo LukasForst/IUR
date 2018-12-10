@@ -5,7 +5,7 @@ using IurGoogleApi.Dto;
 
 namespace IurGoogleApi.Contacts
 {
-    public class ContactsProvider
+    public class ContactsProvider : IContactsProvider
     {
         private readonly ApiService apiService;
 
