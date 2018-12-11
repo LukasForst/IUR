@@ -16,16 +16,26 @@ namespace ContactListTP.ViewModel
 
         public IPersonDto GetPersonDto() => new PersonDto(personDto);
 
+        public string DisplayedName => $"{personDto.FirstName} {personDto.LastName}";
+        
         public string FirstName
         {
             get => personDto.FirstName;
-            set => (personDto.FirstName = ValidateAndReturnValue(value, personDto.FirstName)).Also(() => OnPropertyChanged(nameof(FirstName)));
+            set => (personDto.FirstName = ValidateAndReturnValue(value, personDto.FirstName)).Also(() =>
+            {
+                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(DisplayedName));
+            });
         }
 
         public string LastName
         {
             get => personDto.LastName;
-            set => (personDto.LastName = ValidateAndReturnValue(value, personDto.LastName)).Also(() => OnPropertyChanged(nameof(LastName)));
+            set => (personDto.LastName = ValidateAndReturnValue(value, personDto.LastName)).Also(() =>
+            {
+                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(DisplayedName));
+            });
         }
 
         public string PhoneNumber

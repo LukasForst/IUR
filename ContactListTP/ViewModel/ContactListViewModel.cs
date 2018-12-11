@@ -10,7 +10,7 @@ namespace ContactListTP.ViewModel
         private readonly ContactListProvider contactListProvider;
 
         private int selectedContactItemIndex;
-        private ContactListItemViewModel selectedContactItem;
+        private ContactDetailViewModel selectedContactItem;
 
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
@@ -18,7 +18,7 @@ namespace ContactListTP.ViewModel
             UpdateContactList();
         }
 
-        public ObservableCollection<ContactListItemViewModel> ContactList { get; set; } = new ObservableCollection<ContactListItemViewModel>();
+        public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();
 
         public int SelectedContactItemIndex
         {
@@ -26,7 +26,7 @@ namespace ContactListTP.ViewModel
             set => (selectedContactItemIndex = value).Also(() => OnPropertyChanged(nameof(SelectedContactItemIndex)));
         }
 
-        public ContactListItemViewModel SelectedContactItem
+        public ContactDetailViewModel SelectedContactItem
         {
             get => selectedContactItem;
             set => (selectedContactItem = value).Also(() => OnPropertyChanged(nameof(SelectedContactItem)));
@@ -37,7 +37,7 @@ namespace ContactListTP.ViewModel
 
         private void UpdateContactList()
         {
-            ContactList = new ObservableCollection<ContactListItemViewModel>(contactListProvider.BuildContactList());
+            ContactList = new ObservableCollection<ContactDetailViewModel>(contactListProvider.BuildContactList());
         }
     }
 }

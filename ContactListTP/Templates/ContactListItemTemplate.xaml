@@ -1,9 +1,11 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewModel="clr-namespace:ContactListTP.ViewModel">
-    <!-- <Style TargetType="{x:Type viewModel:ContactListItemViewModel}" BasedOn="{StaticResource {x:Type ListItem}}"> -->
-        <!-- <Setter Property="Template"> -->
-            
-        <!-- </Setter> -->
-    <!-- </Style> -->
+                    xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
+                    xmlns:templates="clr-namespace:ContactListTP">
+
+    <DataTemplate x:Key="ContactListItemTemplate" DataType="viewModel:ContactDetailViewModel">
+        <TextBlock Text="{Binding DisplayedName}" />
+    </DataTemplate>
+
 </ResourceDictionary>

@@ -67,7 +67,6 @@
     <Compile Include="Providers\ContactListProvider.cs"/>
     <Compile Include="ViewModel\AddContactViewModel.cs"/>
     <Compile Include="ViewModel\ContactDetailViewModel.cs"/>
-    <Compile Include="ViewModel\ContactListItemViewModel.cs"/>
     <Compile Include="ViewModel\ContactListViewModel.cs"/>
     <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -116,6 +115,7 @@
   <ItemGroup>
     <Page Include="Templates\ContactDetailTemplate.xaml"/>
     <Page Include="Templates\ContactListItemTemplate.xaml"/>
+    <Page Include="Templates\Merged.xaml"/>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

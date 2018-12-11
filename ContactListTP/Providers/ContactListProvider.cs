@@ -16,9 +16,9 @@ namespace ContactListTP.Providers
             this.contactsProvider = contactsProvider;
         }
 
-        public IReadOnlyCollection<ContactListItemViewModel> BuildContactList() =>
+        public IReadOnlyCollection<ContactDetailViewModel> BuildContactList() =>
             contactsProvider.GetContacts()
-                .Select(x => new ContactListItemViewModel(x))
+                .Select(x => new ContactDetailViewModel(x))
                 .OrderBy(x => x.DisplayedName)
                 .ToList();
 
@@ -26,7 +26,7 @@ namespace ContactListTP.Providers
             contactsProvider.AddContact(addContactViewModel.ToPersonDto())
                 .Let(x => new ContactDetailViewModel(x));
 
-        public IReadOnlyCollection<ContactListItemViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
+        public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
         {
             contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
             return BuildContactList();
