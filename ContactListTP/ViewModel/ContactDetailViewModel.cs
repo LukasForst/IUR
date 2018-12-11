@@ -52,11 +52,11 @@ namespace ContactListTP.ViewModel
 
         public string PhotoUrl => personDto.PhotoUrl;
 
-        public string BirthDayFormated
+        public string BirthDayFormatted
         {
             get => personDto.BirthDayFormated;
             set => (personDto.BirthDayFormated = ValidateAndReturnValue(value, personDto.BirthDayFormated))
-                .Also(() => OnPropertyChanged(nameof(BirthDayFormated)));
+                .Also(() => OnPropertyChanged(nameof(BirthDayFormatted)));
         }
 
         public string Address

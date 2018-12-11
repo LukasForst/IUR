@@ -3,6 +3,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <DataTemplate x:Key="ContactDetailTemplate" DataType="viewModel:ContactDetailViewModel">
-        <TextBlock Text="{Binding EmailAddress}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Image Grid.Row="0" Grid.Column="0" Source="{Binding PhotoUrl}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding EmailAddress}" IsEnabled="True" />
+            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding PhoneNumber}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding BirthDayFormatted}" />
+            
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

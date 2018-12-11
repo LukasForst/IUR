@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary Source="../Templates/Merged.xaml" />
     </Window.Resources>
-    <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel, IsDesignTimeCreatable=True}">
+    <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -19,7 +19,16 @@
                  SelectedItem="{Binding SelectedContactItem}"
                  ItemTemplate="{StaticResource ContactListItemTemplate}" />
 
-        <Label Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}" />
+        <Label Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
     </Grid>
-
 </Window>
