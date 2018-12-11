@@ -9,10 +9,17 @@
     <Window.Resources>
         <ResourceDictionary Source="../Templates/Merged.xaml" />
     </Window.Resources>
-    <DockPanel d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel, IsDesignTimeCreatable=True}">
-        <ListBox ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
+    <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel, IsDesignTimeCreatable=True}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
                  SelectedItem="{Binding SelectedContactItem}"
                  ItemTemplate="{StaticResource ContactListItemTemplate}" />
-    </DockPanel>
+
+        <Label Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}" />
+    </Grid>
 
 </Window>
