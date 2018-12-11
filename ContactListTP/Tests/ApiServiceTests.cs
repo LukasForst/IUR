@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Common.Dto;
 using IurGoogleApi.Contacts;
 using IurGoogleApi.Credentials;
-using IurGoogleApi.Dto;
 using NUnit.Framework;
 
 namespace Tests
@@ -42,8 +41,8 @@ namespace Tests
             {
                 FirstName = "Test",
                 LastName = "User",
-                PhoneNumbers = new List<string> {"111 222 333"},
-                EmailAddresses = new List<string> {"lomikar@boo.com"}
+                PhoneNumber = "111 222 333",
+                EmailAddress = "lomikar@boo.com"
             };
             var person = apiService.AddPerson(personDto);
             Console.Write(person.Names != null ? person.Names[0].DisplayName + "  " : "n/a  ");

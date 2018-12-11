@@ -9,6 +9,8 @@ namespace ContactListTP.ViewModel
         private string lastName = string.Empty;
         private string phoneNumber = string.Empty;
         private string emailAddress = string.Empty;
+        private string birthDay = string.Empty;
+        private string address = string.Empty;
 
         public string FirstName
         {
@@ -33,5 +35,18 @@ namespace ContactListTP.ViewModel
             get => emailAddress;
             set => (emailAddress = value).Also(() => OnPropertyChanged(nameof(EmailAddress)));
         }
+        
+        public string BirthDayFormated
+        {
+            get => birthDay;
+            set => (birthDay = value).Also(() => OnPropertyChanged(nameof(BirthDayFormated)));
+        }
+
+        public string Address
+        {
+            get => address;
+            set => (address = value).Also(() => OnPropertyChanged(nameof(Address)));
+        }
+
     }
 }

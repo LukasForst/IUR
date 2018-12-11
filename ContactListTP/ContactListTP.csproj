@@ -35,20 +35,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-      <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
-          <HintPath>packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
-          <Private>True</Private>
-      </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+      <HintPath>packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
       <HintPath>packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
-        <Private>True</Private>
+      <Private>True</Private>
     </Reference>
-      <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
-          <HintPath>packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
-          <Private>True</Private>
-      </Reference>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
+      <HintPath>packages\Ninject.Extensions.Factory.3.3.2\lib\net45\Ninject.Extensions.Factory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-      <Reference Include="System.Configuration"/>
+    <Reference Include="System.Configuration"/>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
@@ -61,13 +61,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-      <Compile Include="Configuration\Command.cs"/>
-      <Compile Include="Configuration\ViewModelBase.cs"/>
-      <Compile Include="Providers\ContactListProvider.cs"/>
-      <Compile Include="ViewModel\AddContactViewModel.cs"/>
-      <Compile Include="ViewModel\ContactDetailViewModel.cs"/>
-      <Compile Include="ViewModel\ContactListItemViewModel.cs"/>
-      <Compile Include="ViewModel\ContactListViewModel.cs"/>
+    <Compile Include="Configuration\Command.cs"/>
+    <Compile Include="Configuration\ViewModelBase.cs"/>
+    <Compile Include="Extensions\Extensions.cs"/>
+    <Compile Include="Providers\ContactListProvider.cs"/>
+    <Compile Include="ViewModel\AddContactViewModel.cs"/>
+    <Compile Include="ViewModel\ContactDetailViewModel.cs"/>
+    <Compile Include="ViewModel\ContactListItemViewModel.cs"/>
+    <Compile Include="ViewModel\ContactListViewModel.cs"/>
     <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -97,10 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-      <ProjectReference Include="Common\Common.csproj">
-          <Project>{70e4851e-0199-4913-958d-ebfe1d5569aa}</Project>
-          <Name>Common</Name>
-      </ProjectReference>
+    <ProjectReference Include="Common\Common.csproj">
+      <Project>{70e4851e-0199-4913-958d-ebfe1d5569aa}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="IurGoogleApi\IurGoogleApi.csproj">
       <Project>{f4575b50-7beb-4421-8118-0ce1f9c65afd}</Project>
       <Name>IurGoogleApi</Name>
@@ -113,7 +114,8 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-      <Page Include="Templates\ContactListItemTemplate.xaml"/>
+    <Page Include="Templates\ContactDetailTemplate.xaml"/>
+    <Page Include="Templates\ContactListItemTemplate.xaml"/>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

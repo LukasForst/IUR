@@ -72,17 +72,22 @@
     <Compile Include="Contacts\ContactsProvider.cs" />
     <Compile Include="Contacts\IContactsProvider.cs" />
     <Compile Include="Credentials\CredentialsProvider.cs" />
-    <Compile Include="Dto\IPersonDto.cs" />
-    <Compile Include="Dto\PersonDto.cs" />
+    <Compile Include="Extensions\Extensions.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-      <Content Include="client_id.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+    <Content Include="client_id.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{70e4851e-0199-4913-958d-ebfe1d5569aa}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

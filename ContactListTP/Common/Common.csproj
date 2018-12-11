@@ -32,21 +32,34 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Google.Apis, Version=1.36.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab">
+            <HintPath>..\IurGoogleApi\bin\Debug\Google.Apis.dll</HintPath>
+        </Reference>
+        <Reference Include="Google.Apis.PeopleService.v1, Version=1.36.1.1435, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab">
+            <HintPath>..\IurGoogleApi\bin\Debug\Google.Apis.PeopleService.v1.dll</HintPath>
+        </Reference>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Converters\DateConverter.cs"/>
+        <Compile Include="Converters\Extensions.cs"/>
+        <Compile Include="Converters\IConverter.cs"/>
+        <Compile Include="Converters\PersonBuilder.cs"/>
+        <Compile Include="Converters\PersonDtoPersonConverter.cs"/>
+        <Compile Include="Dto\IPersonDto.cs"/>
+        <Compile Include="Dto\PersonDto.cs"/>
         <Compile Include="Extensions\Extensions.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-           Other similar extension points exist, see Microsoft.Common.targets.
-      <Target Name="BeforeBuild">
-      </Target>
-      <Target Name="AfterBuild">
-      </Target>
-      -->
+             Other similar extension points exist, see Microsoft.Common.targets.
+        <Target Name="BeforeBuild">
+        </Target>
+        <Target Name="AfterBuild">
+        </Target>
+        -->
 </Project>

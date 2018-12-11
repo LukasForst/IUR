@@ -54,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+      <ProjectReference Include="..\Common\Common.csproj">
+          <Project>{70e4851e-0199-4913-958d-ebfe1d5569aa}</Project>
+          <Name>Common</Name>
+      </ProjectReference>
     <ProjectReference Include="..\ContactListTP.csproj">
       <Project>{b4061661-d06c-4a66-83e0-2d6d43719477}</Project>
       <Name>ContactListTP</Name>
@@ -61,10 +65,6 @@
     <ProjectReference Include="..\IurGoogleApi\IurGoogleApi.csproj">
       <Project>{f4575b50-7beb-4421-8118-0ce1f9c65afd}</Project>
       <Name>IurGoogleApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Playgrount\Playgrount.csproj">
-      <Project>{34bb6cc7-971e-43bc-99d4-3f8787797b7b}</Project>
-      <Name>Playgrount</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

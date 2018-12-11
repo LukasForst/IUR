@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Documents;
-using IurGoogleApi.Dto;
+using Common.Dto;
 
 namespace ContactListTP.ViewModel
 {
@@ -17,7 +17,9 @@ namespace ContactListTP.ViewModel
 
         public string DisplayedName => nameTransformation(personDto.FirstName, personDto.LastName);
 
-        public IPersonDto GetBackingValue() => new PersonDto(personDto);
+        public string PhotoUrl => personDto.PhotoUrl;
+
+        public IPersonDto GetPersonDto() => new PersonDto(personDto);
 
         private string DefaultNameTransformation(string firstName, string familyName) => $"{firstName} {familyName}";
     }

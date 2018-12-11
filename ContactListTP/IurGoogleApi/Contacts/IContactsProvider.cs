@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using IurGoogleApi.Dto;
+using Common.Dto;
 
 namespace IurGoogleApi.Contacts
 {
@@ -9,6 +9,6 @@ namespace IurGoogleApi.Contacts
         
         IPersonDto AddContact(IPersonDto personDto);
 
-        bool RemoveContact(IPersonDto personDto);
+        void RemoveContact(IPersonDto personDto);
     }
 }

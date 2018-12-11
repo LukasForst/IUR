@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Common.Extensions;
+using ContactListTP.Extensions;
 using ContactListTP.ViewModel;
 using IurGoogleApi.Contacts;
-using IurGoogleApi.Dto;
 
 namespace ContactListTP.Providers
 {
@@ -16,31 +17,18 @@ namespace ContactListTP.Providers
         }
 
         public IReadOnlyCollection<ContactListItemViewModel> BuildContactList() =>
-            contactsProvider.GetContacts().Select(x => new ContactListItemViewModel(x)).ToList();
+            contactsProvider.GetContacts()
+                .Select(x => new ContactListItemViewModel(x))
+                .OrderBy(x => x.DisplayedName)
+                .ToList();
 
-        public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel)
-        {
-            var personDto = contactsProvider.AddContact(new PersonDto
-            {
-                FirstName = addContactViewModel.FirstName,
-                LastName = addContactViewModel.LastName,
-                EmailAddresses = new List<string> {addContactViewModel.EmailAddress},
-                PhoneNumbers = new List<string> {addContactViewModel.PhoneNumber}
-            });
-
-            return new ContactDetailViewModel(personDto);
-        }
+        public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel) =>
+            contactsProvider.AddContact(addContactViewModel.ToPersonDto())
+                .Let(x => new ContactDetailViewModel(x));
 
         public IReadOnlyCollection<ContactListItemViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
         {
-            contactsProvider.RemoveContact(new PersonDto
-            {
-                FirstName = contactToRemove.FirstName,
-                LastName = contactToRemove.LastName,
-                EmailAddresses = new List<string> {contactToRemove.EmailAddress},
-                PhoneNumbers = new List<string> {contactToRemove.PhoneNumber}
-            });
-
+            contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
             return BuildContactList();
         }
     }
