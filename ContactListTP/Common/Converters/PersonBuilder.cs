@@ -66,7 +66,7 @@ namespace Common.Converters
         {
             if (!dto.EmailAddress.IsNullOrEmpty())
             {
-                var value = new EmailAddress {Value = dto.PhoneNumber};
+                var value = new EmailAddress {Value = dto.EmailAddress};
                 person.EmailAddresses = new List<EmailAddress> {value};
             }
 
