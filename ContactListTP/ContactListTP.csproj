@@ -113,13 +113,11 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+      <Page Include="Templates\ContactListItemTemplate.xaml"/>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Templates"/>
-    </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

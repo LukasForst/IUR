@@ -1,13 +1,13 @@
 using System;
-using ContactListTP.Configuration;
+using System.Windows.Documents;
 using IurGoogleApi.Dto;
 
 namespace ContactListTP.ViewModel
 {
-    public class ContactListItemViewModel : ViewModelBase
+    public class ContactListItemViewModel : ListItem
     {
         private readonly IPersonDto personDto;
-        private Func<string, string, string> nameTransformation;
+        private readonly Func<string, string, string> nameTransformation;
 
         public ContactListItemViewModel(IPersonDto personDto, Func<string, string, string> nameTransformation = null)
         {
@@ -15,8 +15,8 @@ namespace ContactListTP.ViewModel
             this.nameTransformation = nameTransformation ?? DefaultNameTransformation;
         }
 
-        public string Name => personDto.FirstName;
-        
+        public string DisplayedName => nameTransformation(personDto.FirstName, personDto.LastName);
+
         public IPersonDto GetBackingValue() => new PersonDto(personDto);
 
         private string DefaultNameTransformation(string firstName, string familyName) => $"{firstName} {familyName}";

@@ -15,6 +15,7 @@ namespace ContactListTP.ViewModel
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
             this.contactListProvider = contactListProvider;
+            UpdateContactList();
         }
 
         public ObservableCollection<ContactListItemViewModel> ContactList { get; set; } = new ObservableCollection<ContactListItemViewModel>();

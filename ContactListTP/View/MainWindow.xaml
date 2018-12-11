@@ -7,9 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <DockPanel d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel, IsDesignTimeCreatable=True}">
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5">
-            <!-- <Label Width="200" Content="{Binding NewLocation}" /> -->
-        </StackPanel>
+        <ListBox ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
+                 SelectedItem="{Binding SelectedContactItem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding DisplayedName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 
 </Window>

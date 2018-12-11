@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModel="clr-namespace:ContactListTP.ViewModel">
+    <!-- <Style TargetType="{x:Type viewModel:ContactListItemViewModel}" BasedOn="{StaticResource {x:Type ListItem}}"> -->
+        <!-- <Setter Property="Template"> -->
+            
+        <!-- </Setter> -->
+    <!-- </Style> -->
+</ResourceDictionary>
