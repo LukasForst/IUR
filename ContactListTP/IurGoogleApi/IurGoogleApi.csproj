@@ -76,8 +76,8 @@
     <Compile Include="Contacts\ContactsProvider.cs" />
     <Compile Include="Contacts\IContactsProvider.cs" />
     <Compile Include="Credentials\CredentialsProvider.cs" />
-      <Compile Include="Extensions\Extensions.cs"/>
-      <Compile Include="Extensions\GoogleApiException.cs"/>
+    <Compile Include="Extensions\Extensions.cs"/>
+    <Compile Include="Extensions\GoogleApiException.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

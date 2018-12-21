@@ -38,7 +38,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="{Binding PhotoUrl}" MaxWidth="150" MaxHeight="150" HorizontalAlignment="Center" />
+            <Image Grid.Row="0" MaxWidth="150" MaxHeight="150" HorizontalAlignment="Center">
+                <Image.Source>
+                    <Binding Path="PhotoUrl">
+                        <Binding.TargetNullValue>
+                            <ImageSource>../Resources/default_img.png</ImageSource>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </Image.Source>
+            </Image>
 
             <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>

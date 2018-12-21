@@ -80,7 +80,6 @@ namespace IurGoogleApi.Contacts
                     "phoneNumbers",
                     "emailAddresses",
                     "names",
-                    "photos",
                     "birthdays",
                     "addresses"
                 }

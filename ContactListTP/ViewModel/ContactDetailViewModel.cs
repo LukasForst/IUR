@@ -67,7 +67,7 @@ namespace ContactListTP.ViewModel
             set => (personDto.EmailAddress = ValidateAndReturnValue(value, personDto.EmailAddress)).Also(() => OnPropertyChanged(nameof(EmailAddress)));
         }
 
-        public string PhotoUrl => personDto.PhotoUrl;
+        public string PhotoUrl => personDto.PhotoUrl.IsNullOrEmpty() ? null : personDto.PhotoUrl;
 
         public string BirthDayFormatted
         {
