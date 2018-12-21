@@ -9,15 +9,21 @@ namespace ContactListTP.ViewModel
         private const string DefaultDisplayString = "n/a";
         private readonly PersonDto personDto;
 
+        private bool editModeEnabled;
+
         public ContactDetailViewModel(IPersonDto personDto)
         {
             this.personDto = new PersonDto(personDto);
         }
 
-        public IPersonDto GetPersonDto() => new PersonDto(personDto);
-
         public string DisplayedName => $"{personDto.FirstName} {personDto.LastName}";
-        
+
+        public bool EditModeEnabled
+        {
+            get => editModeEnabled;
+            set => SetProperty(ref editModeEnabled, value);
+        }
+
         public string FirstName
         {
             get => personDto.FirstName;
@@ -54,8 +60,8 @@ namespace ContactListTP.ViewModel
 
         public string BirthDayFormatted
         {
-            get => personDto.BirthDayFormated;
-            set => (personDto.BirthDayFormated = ValidateAndReturnValue(value, personDto.BirthDayFormated))
+            get => personDto.BirthDayFormatted;
+            set => (personDto.BirthDayFormatted = ValidateAndReturnValue(value, personDto.BirthDayFormatted))
                 .Also(() => OnPropertyChanged(nameof(BirthDayFormatted)));
         }
 
@@ -63,6 +69,11 @@ namespace ContactListTP.ViewModel
         {
             get => personDto.Address;
             set => (personDto.Address = ValidateAndReturnValue(value, personDto.Address)).Also(() => OnPropertyChanged(nameof(Address)));
+        }
+
+        public IPersonDto GetPersonDto()
+        {
+            return new PersonDto(personDto);
         }
 
         private string ValidateAndReturnValue(string valueToSet, string previousValue)

@@ -43,10 +43,7 @@ namespace Common.Converters
                 updated = true;
             }
 
-            if (updated)
-            {
-                person.Names = new List<Name> {name};
-            }
+            if (updated) person.Names = new List<Name> {name};
 
             return this;
         }
@@ -75,9 +72,9 @@ namespace Common.Converters
 
         private PersonBuilder SetBirthDay()
         {
-            if (!dto.BirthDayFormated.IsNullOrEmpty())
+            if (!dto.BirthDayFormatted.IsNullOrEmpty())
             {
-                var value = new Birthday {Date = dto.BirthDayFormated.ParseDate()};
+                var value = new Birthday {Date = dto.BirthDayFormatted.ParseDate()};
                 person.Birthdays = new List<Birthday> {value};
             }
 

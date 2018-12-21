@@ -1,23 +1,63 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
+                    xmlns:converters="clr-namespace:ContactListTP.Converters"
+                    xmlns:local="clr-namespace:ContactListTP"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
+    <Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin">
+            <Setter.Value>
+                0,0,0,10
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>White</Setter.Value>
+        </Setter>
+    </Style>
+
+    <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <DataTemplate x:Key="ContactDetailTemplate" DataType="viewModel:ContactDetailViewModel">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid Margin="10" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Image Grid.Row="0" Grid.Column="0" Source="{Binding PhotoUrl}" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding EmailAddress}" IsEnabled="True" />
-            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding PhoneNumber}" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding BirthDayFormatted}" />
-            
+            <Image Grid.Row="0" Source="{Binding PhotoUrl}" MaxWidth="100" MaxHeight="100" HorizontalAlignment="Center" />
+
+            <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Name: </Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName}" Style="{StaticResource DefaultTextBoxStyle}"
+                         IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
+
+                <Label Grid.Row="1" Grid.Column="0">E-mail: </Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource DefaultTextBoxStyle}" Text="{Binding EmailAddress}"
+                         IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
+
+                <Label Grid.Row="2" Grid.Column="0">Phone: </Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource DefaultTextBoxStyle}" Text="{Binding PhoneNumber}"
+                         IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
+
+                <Label Grid.Row="3" Grid.Column="0">Birth Day: </Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource DefaultTextBoxStyle}" Text="{Binding BirthDayFormatted}"
+                         IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
+
+                <Label Grid.Row="4" Grid.Column="0">Address: </Label>
+                <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource DefaultTextBoxStyle}" Text="{Binding Address}"
+                         IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
+            </Grid>
+
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

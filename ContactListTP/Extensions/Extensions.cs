@@ -5,14 +5,17 @@ namespace ContactListTP.Extensions
 {
     public static class Extensions
     {
-        public static IPersonDto ToPersonDto(this AddContactViewModel model) => new PersonDto
+        public static IPersonDto ToPersonDto(this AddContactViewModel model)
         {
-            FirstName = model.FirstName,
-            LastName = model.LastName,
-            PhoneNumber = model.PhoneNumber,
-            EmailAddress = model.EmailAddress,
-            BirthDayFormated = model.BirthDayFormated,
-            Address = model.Address,
-        };
+            return new PersonDto
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                EmailAddress = model.EmailAddress,
+                BirthDayFormatted = model.BirthDayFormated,
+                Address = model.Address
+            };
+        }
     }
 }

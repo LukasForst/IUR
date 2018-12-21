@@ -10,25 +10,60 @@
         <ResourceDictionary Source="../Templates/Merged.xaml" />
     </Window.Resources>
     <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
-                 SelectedItem="{Binding SelectedContactItem}"
-                 ItemTemplate="{StaticResource ContactListItemTemplate}" />
+        <Menu Width="Auto" Height="20" Background="White" DockPanel.Dock="Top">
+            <MenuItem Header="_Add New" Command="{Binding AddCommand}" />
+            <MenuItem Header="_Delete" Command="{Binding DeleteCommand}" />
+        </Menu>
 
-        <Label Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
+                     SelectedItem="{Binding SelectedContactItem}"
+                     ItemTemplate="{StaticResource ContactListItemTemplate}" MinWidth="120" />
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Grid.Style>
+
+                <Label Grid.Row="0" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}"
+                       VerticalAlignment="Stretch" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox Grid.Column="0" Content="Edit Enabled" IsChecked="{Binding SelectedContactItem.EditModeEnabled}" Margin="5,1,1,5"
+                              VerticalAlignment="Center" />
+                    <Button Grid.Column="1" Content="Save" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SaveCommand}" Width="50"
+                            Margin="5,1,1,5" VerticalAlignment="Center" />
+                </Grid>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

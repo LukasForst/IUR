@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Common.Dto;
 using Common.Extensions;
 using ContactListTP.Extensions;
 using ContactListTP.ViewModel;
@@ -16,20 +17,34 @@ namespace ContactListTP.Providers
             this.contactsProvider = contactsProvider;
         }
 
-        public IReadOnlyCollection<ContactDetailViewModel> BuildContactList() =>
-            contactsProvider.GetContacts()
+        public IReadOnlyCollection<ContactDetailViewModel> BuildContactList()
+        {
+            return contactsProvider.GetContacts()
                 .Select(x => new ContactDetailViewModel(x))
                 .OrderBy(x => x.DisplayedName)
                 .ToList();
+        }
 
-        public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel) =>
-            contactsProvider.AddContact(addContactViewModel.ToPersonDto())
+        public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel)
+        {
+            return contactsProvider.AddContact(addContactViewModel.ToPersonDto())
                 .Let(x => new ContactDetailViewModel(x));
+        }
 
         public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
         {
             contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
             return BuildContactList();
+        }
+
+        public ContactDetailViewModel CreateEmpty()
+        {
+            var dto = new PersonDto
+            {
+                LastName = "FERO",
+                IsNew = true
+            };
+            return new ContactDetailViewModel(dto) {EditModeEnabled = true};
         }
     }
 }

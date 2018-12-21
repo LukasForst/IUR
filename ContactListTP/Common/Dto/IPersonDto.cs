@@ -3,10 +3,10 @@ namespace Common.Dto
     public interface IPersonDto
     {
         /// <summary>
-        /// Identification of contact
+        ///     Identification of contact
         /// </summary>
         string ResourceName { get; }
-        
+
         string FirstName { get; }
 
         string LastName { get; }
@@ -14,11 +14,11 @@ namespace Common.Dto
         string PhoneNumber { get; }
 
         string EmailAddress { get; }
-        
+
         string PhotoUrl { get; }
-                
-        string BirthDayFormated { get; }
-        
+
+        string BirthDayFormatted { get; }
+
         string Address { get; }
     }
 }

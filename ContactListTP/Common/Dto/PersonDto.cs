@@ -14,9 +14,11 @@ namespace Common.Dto
             PhoneNumber = dto.PhoneNumber;
             EmailAddress = dto.EmailAddress;
             PhotoUrl = dto.PhotoUrl;
-            BirthDayFormated = dto.BirthDayFormated;
+            BirthDayFormatted = dto.BirthDayFormatted;
             Address = dto.Address;
         }
+
+        public bool IsNew { get; set; } = false;
 
         public string ResourceName { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
@@ -24,7 +26,7 @@ namespace Common.Dto
         public string PhoneNumber { get; set; } = string.Empty;
         public string EmailAddress { get; set; } = string.Empty;
         public string PhotoUrl { get; set; } = string.Empty;
-        public string BirthDayFormated { get; set; } = string.Empty;
+        public string BirthDayFormatted { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
     }
 }

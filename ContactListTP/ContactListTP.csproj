@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B4061661-D06C-4A66-83E0-2D6D43719477}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>ContactListTP</RootNamespace>
     <AssemblyName>ContactListTP</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -34,9 +34,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ContactListTP.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
       <HintPath>packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <HintPath>packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7">
@@ -63,7 +70,9 @@
   <ItemGroup>
     <Compile Include="Configuration\Command.cs"/>
     <Compile Include="Configuration\ViewModelBase.cs"/>
+    <Compile Include="Converters\InverseBooleanConverter.cs"/>
     <Compile Include="Extensions\Extensions.cs"/>
+    <Compile Include="Program.cs"/>
     <Compile Include="Providers\ContactListProvider.cs"/>
     <Compile Include="ViewModel\AddContactViewModel.cs"/>
     <Compile Include="ViewModel\ContactDetailViewModel.cs"/>
@@ -113,6 +122,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\TextBoxStyle.xaml"/>
     <Page Include="Templates\ContactDetailTemplate.xaml"/>
     <Page Include="Templates\ContactListItemTemplate.xaml"/>
     <Page Include="Templates\Merged.xaml"/>
@@ -120,6 +130,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

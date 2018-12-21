@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Common.Extensions;
 using ContactListTP.Configuration;
 using ContactListTP.Providers;
@@ -8,9 +11,9 @@ namespace ContactListTP.ViewModel
     public class ContactListViewModel : ViewModelBase
     {
         private readonly ContactListProvider contactListProvider;
+        private ContactDetailViewModel selectedContactItem;
 
         private int selectedContactItemIndex;
-        private ContactDetailViewModel selectedContactItem;
 
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
@@ -33,11 +36,28 @@ namespace ContactListTP.ViewModel
         }
 
         public Command<ContactDetailViewModel> DeleteCommand =>
-            new Command<ContactDetailViewModel>(x => contactListProvider.RemoveContact(x).Also(UpdateContactList));
+            new Command<ContactDetailViewModel>(x => contactListProvider.RemoveContact(SelectedContactItem).Also(UpdateContactList));
 
-        private void UpdateContactList()
+        public Command<ContactDetailViewModel> AddCommand =>
+            new Command<ContactDetailViewModel>(x =>
+            {
+                var newContact = contactListProvider.CreateEmpty();
+                ContactList.Insert(0, newContact);
+                SelectedContactItem = newContact;
+                SelectedContactItemIndex = 0;
+            });
+
+        public Command<ContactDetailViewModel> SaveCommand =>
+            new Command<ContactDetailViewModel>(x => Console.Beep());
+
+
+        private void UpdateContactList(IReadOnlyCollection<ContactDetailViewModel> newData = null)
         {
-            ContactList = new ObservableCollection<ContactDetailViewModel>(contactListProvider.BuildContactList());
+            SelectedContactItem = null;
+            SelectedContactItemIndex = -1;
+            ContactList.Clear();
+            if (newData == null) newData = contactListProvider.BuildContactList();
+            newData.OrderBy(x => x.DisplayedName).ForEach(x => ContactList.Add(x));
         }
     }
 }
