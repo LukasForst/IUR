@@ -8,7 +8,7 @@ namespace Common.Dto
 
         public PersonDto(IPersonDto dto)
         {
-            ResourceName = dto.ResourceName;
+            if (dto.GoogleId != null) GoogleId = new GoogleId(dto.GoogleId);
             FirstName = dto.FirstName;
             LastName = dto.LastName;
             PhoneNumber = dto.PhoneNumber;
@@ -18,9 +18,6 @@ namespace Common.Dto
             Address = dto.Address;
         }
 
-        public bool IsNew { get; set; } = false;
-
-        public string ResourceName { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
@@ -28,5 +25,6 @@ namespace Common.Dto
         public string PhotoUrl { get; set; } = string.Empty;
         public string BirthDayFormatted { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
+        public IGoogleId GoogleId { get; set; }
     }
 }

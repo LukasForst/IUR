@@ -17,7 +17,17 @@
 
         <Menu Width="Auto" Height="20" Background="White" DockPanel.Dock="Top">
             <MenuItem Header="_Add New" Command="{Binding AddCommand}" />
-            <MenuItem Header="_Delete" Command="{Binding DeleteCommand}" />
+            <MenuItem Header="_Delete" Command="{Binding DeleteCommand}">
+                <MenuItem.Style>
+                    <Style TargetType="MenuItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </MenuItem.Style>
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1">
@@ -62,7 +72,6 @@
                     <Button Grid.Column="1" Content="Save" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SaveCommand}" Width="50"
                             Margin="5,1,1,5" VerticalAlignment="Center" />
                 </Grid>
-
             </Grid>
         </Grid>
     </Grid>

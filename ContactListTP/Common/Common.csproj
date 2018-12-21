@@ -53,6 +53,8 @@
         <Compile Include="Converters\IConverter.cs"/>
         <Compile Include="Converters\PersonBuilder.cs"/>
         <Compile Include="Converters\PersonDtoPersonConverter.cs"/>
+        <Compile Include="Dto\GoogleId.cs"/>
+        <Compile Include="Dto\IGoogleId.cs"/>
         <Compile Include="Dto\IPersonDto.cs"/>
         <Compile Include="Dto\PersonDto.cs"/>
         <Compile Include="Extensions\Extensions.cs"/>

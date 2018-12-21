@@ -17,7 +17,7 @@ namespace Common.Converters
                 BirthDayFormatted = person.Birthdays?.FirstOrDefault()?.Date?.FormatToString() ?? person.Birthdays?.FirstOrDefault()?.Text ?? string.Empty,
                 EmailAddress = person.EmailAddresses?.FirstOrDefault()?.Value ?? string.Empty,
                 PhotoUrl = person.Photos?.FirstOrDefault()?.Url ?? string.Empty,
-                ResourceName = person.ResourceName
+                GoogleId = new GoogleId(person.ResourceName, person.ETag)
             };
         }
 

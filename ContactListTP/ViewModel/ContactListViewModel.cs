@@ -1,19 +1,24 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
 using Common.Extensions;
 using ContactListTP.Configuration;
 using ContactListTP.Providers;
+using log4net;
 
 namespace ContactListTP.ViewModel
 {
     public class ContactListViewModel : ViewModelBase
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly ContactListProvider contactListProvider;
         private ContactDetailViewModel selectedContactItem;
 
         private int selectedContactItemIndex;
+
 
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
@@ -48,7 +53,23 @@ namespace ContactListTP.ViewModel
             });
 
         public Command<ContactDetailViewModel> SaveCommand =>
-            new Command<ContactDetailViewModel>(x => Console.Beep());
+            new Command<ContactDetailViewModel>(x =>
+            {
+                var contact = contactListProvider.SaveContact(SelectedContactItem);
+                if (contact == null)
+                {
+                    MessageBox.Show("There were some problems with saving contact.",
+                        "Save failed",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    Log.Warn($"Contact saving for {SelectedContactItem.DisplayedName} failed with no exception.");
+                }
+                else
+                {
+                    UpdateContactList();
+                    MessageBox.Show("Contact successfully saved!", "Contact save", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
 
 
         private void UpdateContactList(IReadOnlyCollection<ContactDetailViewModel> newData = null)

@@ -14,10 +14,24 @@ namespace IurGoogleApi.Contacts
             this.apiService = apiService;
         }
 
-        public IReadOnlyCollection<IPersonDto> GetContacts() => apiService.ObtainPeopleFromApi().Select(x => x.ToDto()).ToList();
+        public IReadOnlyCollection<IPersonDto> GetContacts()
+        {
+            return apiService.ObtainPeopleFromApi().Select(x => x.ToDto()).ToList();
+        }
 
-        public IPersonDto AddContact(IPersonDto personDto) => apiService.AddPerson(personDto)?.ToDto();
+        public IPersonDto AddContact(IPersonDto personDto)
+        {
+            return apiService.AddPerson(personDto)?.ToDto();
+        }
 
-        public void RemoveContact(IPersonDto personDto) => apiService.DeletePerson(personDto);
+        public bool RemoveContact(IPersonDto personDto)
+        {
+            return apiService.DeletePerson(personDto);
+        }
+
+        public IPersonDto UpdateContact(IPersonDto personDto)
+        {
+            return apiService.UpdatePerson(personDto)?.ToDto();
+        }
     }
 }

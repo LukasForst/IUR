@@ -2,11 +2,6 @@ namespace Common.Dto
 {
     public interface IPersonDto
     {
-        /// <summary>
-        ///     Identification of contact
-        /// </summary>
-        string ResourceName { get; }
-
         string FirstName { get; }
 
         string LastName { get; }
@@ -20,5 +15,7 @@ namespace Common.Dto
         string BirthDayFormatted { get; }
 
         string Address { get; }
+
+        IGoogleId GoogleId { get; }
     }
 }

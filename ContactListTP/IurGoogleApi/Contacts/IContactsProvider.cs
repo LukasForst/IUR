@@ -9,6 +9,6 @@ namespace IurGoogleApi.Contacts
 
         IPersonDto AddContact(IPersonDto personDto);
 
-        void RemoveContact(IPersonDto personDto);
+        bool RemoveContact(IPersonDto personDto);
     }
 }

@@ -24,7 +24,19 @@ namespace Common.Converters
                 .SetEmailAddress()
                 .SetBirthDay()
                 .SetAddress()
+                .SetGoogleId()
                 .person;
+        }
+
+        private PersonBuilder SetGoogleId()
+        {
+            if (dto.GoogleId != null)
+            {
+                person.ResourceName = dto.GoogleId.ResourceName;
+                person.ETag = dto.GoogleId.ETag;
+            }
+
+            return this;
         }
 
         private PersonBuilder SetName()

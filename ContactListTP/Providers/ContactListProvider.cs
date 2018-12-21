@@ -25,10 +25,12 @@ namespace ContactListTP.Providers
                 .ToList();
         }
 
-        public ContactDetailViewModel AddContact(AddContactViewModel addContactViewModel)
+        public ContactDetailViewModel SaveContact(ContactDetailViewModel addContactViewModel)
         {
-            return contactsProvider.AddContact(addContactViewModel.ToPersonDto())
-                .Let(x => new ContactDetailViewModel(x));
+            var dto = addContactViewModel.GetPersonDto();
+            return dto?.GoogleId == null
+                ? contactsProvider.AddContact(addContactViewModel.ToPersonDto()).Let(x => new ContactDetailViewModel(x))
+                : contactsProvider.UpdateContact(dto).Let(x => new ContactDetailViewModel(x));
         }
 
         public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
@@ -39,11 +41,7 @@ namespace ContactListTP.Providers
 
         public ContactDetailViewModel CreateEmpty()
         {
-            var dto = new PersonDto
-            {
-                LastName = "FERO",
-                IsNew = true
-            };
+            var dto = new PersonDto();
             return new ContactDetailViewModel(dto) {EditModeEnabled = true};
         }
     }

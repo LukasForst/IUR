@@ -36,10 +36,10 @@ namespace ContactListTP.ViewModel
             set => (emailAddress = value).Also(() => OnPropertyChanged(nameof(EmailAddress)));
         }
 
-        public string BirthDayFormated
+        public string BirthDayFormatted
         {
             get => birthDay;
-            set => (birthDay = value).Also(() => OnPropertyChanged(nameof(BirthDayFormated)));
+            set => (birthDay = value).Also(() => OnPropertyChanged(nameof(BirthDayFormatted)));
         }
 
         public string Address

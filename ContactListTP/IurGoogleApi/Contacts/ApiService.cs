@@ -8,6 +8,7 @@ using Google.Apis.PeopleService.v1;
 using Google.Apis.PeopleService.v1.Data;
 using Google.Apis.Services;
 using IurGoogleApi.Credentials;
+using IurGoogleApi.Extensions;
 using log4net;
 
 namespace IurGoogleApi.Contacts
@@ -40,7 +41,7 @@ namespace IurGoogleApi.Contacts
             };
             peopleRequest.PageSize = MaxPageSize;
 
-            var requestResponse = ExecuteSafe(peopleRequest.Execute);
+            var requestResponse = ExecuteChecking(peopleRequest.Execute);
             if (requestResponse != null && requestResponse.Connections.Count > 0)
                 return requestResponse.Connections.Also(x => Log.Info($"Data fetched successfully! - {x.Count} contacts fetched"));
 
@@ -50,15 +51,41 @@ namespace IurGoogleApi.Contacts
 
         public bool DeletePerson(IPersonDto personDto)
         {
-            Log.Info($"Deleting person - {personDto.ResourceName}");
-            var result = ExecuteSafe(new PeopleResource.DeleteContactRequest(CreateService(), personDto.ResourceName).Execute);
+            Log.Info($"Deleting person - {personDto.GoogleId.ResourceName}");
+            var result = ExecuteChecking(new PeopleResource.DeleteContactRequest(CreateService(), personDto.GoogleId.ResourceName).Execute);
             return result != null;
         }
 
         public Person AddPerson(IPersonDto personDto)
         {
             var contactToCreate = PersonBuilder.Build(personDto);
-            return ExecuteSafe(new PeopleResource.CreateContactRequest(CreateService(), contactToCreate).Execute);
+            return ExecuteChecking(new PeopleResource.CreateContactRequest(CreateService(), contactToCreate).Execute);
+        }
+
+        public Person UpdatePerson(IPersonDto personDto)
+        {
+            if (personDto?.GoogleId == null)
+            {
+                Log.Error("Cannot update person when no resource name provided!");
+                return null;
+            }
+
+            var contactToUpdate = PersonBuilder.Build(personDto);
+            contactToUpdate.ResourceName = personDto.GoogleId.ResourceName;
+            contactToUpdate.ETag = personDto.GoogleId.ETag;
+            var request = new PeopleResource.UpdateContactRequest(CreateService(), contactToUpdate, contactToUpdate.ResourceName)
+            {
+                UpdatePersonFields = new List<string>
+                {
+                    "phoneNumbers",
+                    "emailAddresses",
+                    "names",
+                    "photos",
+                    "birthdays",
+                    "addresses"
+                }
+            };
+            return ExecuteChecking(request.Execute);
         }
 
         private PeopleServiceService CreateService()
@@ -70,7 +97,7 @@ namespace IurGoogleApi.Contacts
             });
         }
 
-        private T ExecuteSafe<T>(Func<T> block, T defaultValue = null) where T : class
+        private T ExecuteChecking<T>(Func<T> block)
         {
             try
             {
@@ -79,7 +106,7 @@ namespace IurGoogleApi.Contacts
             catch (Exception e)
             {
                 Log.Error("Exception was thrown while fetching data from Google!", e);
-                return defaultValue;
+                throw new GoogleApiException(e);
             }
         }
     }
