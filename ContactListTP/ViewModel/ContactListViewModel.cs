@@ -23,7 +23,6 @@ namespace ContactListTP.ViewModel
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
             this.contactListProvider = contactListProvider;
-            UpdateContactList();
         }
 
         public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();
@@ -31,45 +30,33 @@ namespace ContactListTP.ViewModel
         public int SelectedContactItemIndex
         {
             get => selectedContactItemIndex;
-            set => (selectedContactItemIndex = value).Also(() => OnPropertyChanged(nameof(SelectedContactItemIndex)));
+            set => SetProperty(ref selectedContactItemIndex, value);
         }
 
         public ContactDetailViewModel SelectedContactItem
         {
             get => selectedContactItem;
-            set => (selectedContactItem = value).Also(() => OnPropertyChanged(nameof(SelectedContactItem)));
+            set => SetProperty(ref selectedContactItem, value);
         }
 
-        public Command<ContactDetailViewModel> DeleteCommand =>
-            new Command<ContactDetailViewModel>(x => contactListProvider.RemoveContact(SelectedContactItem).Also(UpdateContactList));
+        public Command<ContactListViewModel> RefreshListCommand => new Command<ContactListViewModel>(_ => UpdateContactList());
 
-        public Command<ContactDetailViewModel> AddCommand =>
-            new Command<ContactDetailViewModel>(x =>
-            {
-                var newContact = contactListProvider.CreateEmpty();
-                ContactList.Insert(0, newContact);
-                SelectedContactItem = newContact;
-                SelectedContactItemIndex = 0;
-            });
+        public Command<ContactListViewModel> DeleteCommand =>
+            new Command<ContactListViewModel>(_ => contactListProvider.RemoveContact(SelectedContactItem).Also(UpdateContactList));
 
-        public Command<ContactDetailViewModel> SaveCommand =>
-            new Command<ContactDetailViewModel>(x =>
-            {
-                var contact = contactListProvider.SaveContact(SelectedContactItem);
-                if (contact == null)
-                {
-                    MessageBox.Show("There were some problems with saving contact.",
-                        "Save failed",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
-                    Log.Warn($"Contact saving for {SelectedContactItem.DisplayedName} failed with no exception.");
-                }
-                else
-                {
-                    UpdateContactList();
-                    MessageBox.Show("Contact successfully saved!", "Contact save", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            });
+        public Command<ContactListViewModel> AddCommand => new Command<ContactListViewModel>(_ =>
+        {
+            var newContact = contactListProvider.CreateEmpty();
+            ContactList.Insert(0, newContact);
+            SelectedContactItem = newContact;
+            SelectedContactItemIndex = 0;
+        });
+
+        public Command<ContactListViewModel> SaveCommand => new Command<ContactListViewModel>(_ =>
+        {
+            contactListProvider.SaveContact(SelectedContactItem).Also(UpdateContactList);
+            MessageBox.Show("Contact successfully saved!", "Contact save", MessageBoxButton.OK, MessageBoxImage.Information);
+        });
 
 
         private void UpdateContactList(IReadOnlyCollection<ContactDetailViewModel> newData = null)

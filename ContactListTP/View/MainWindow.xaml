@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
 
         <Menu Width="Auto" Height="20" Background="White" DockPanel.Dock="Top">
+            <MenuItem Header="_Refresh" Command="{Binding RefreshListCommand}" />
             <MenuItem Header="_Add New" Command="{Binding AddCommand}" />
             <MenuItem Header="_Delete" Command="{Binding DeleteCommand}">
                 <MenuItem.Style>
@@ -50,6 +51,9 @@
                     <Style TargetType="Grid">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>

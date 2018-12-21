@@ -25,12 +25,14 @@ namespace ContactListTP.Providers
                 .ToList();
         }
 
-        public ContactDetailViewModel SaveContact(ContactDetailViewModel addContactViewModel)
+        public IReadOnlyCollection<ContactDetailViewModel> SaveContact(ContactDetailViewModel addContactViewModel)
         {
             var dto = addContactViewModel.GetPersonDto();
-            return dto?.GoogleId == null
+            var _ = dto?.GoogleId == null
                 ? contactsProvider.AddContact(addContactViewModel.ToPersonDto()).Let(x => new ContactDetailViewModel(x))
                 : contactsProvider.UpdateContact(dto).Let(x => new ContactDetailViewModel(x));
+
+            return BuildContactList();
         }
 
         public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
