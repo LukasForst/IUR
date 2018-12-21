@@ -13,7 +13,6 @@ namespace ContactListTP.Configuration
             Bind<CredentialsProvider>().ToMethod(x => new CredentialsProvider()).InSingletonScope();
 
             Bind<ContactListViewModel>().ToSelf().InTransientScope();
-            Bind<AddContactViewModel>().ToSelf().InTransientScope();
         }
     }
 }

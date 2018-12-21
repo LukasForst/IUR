@@ -16,7 +16,18 @@ namespace ContactListTP.ViewModel
             this.personDto = new PersonDto(personDto);
         }
 
-        public string DisplayedName => $"{personDto.FirstName} {personDto.LastName}";
+        public string DisplayedName
+        {
+            get
+            {
+                var str = "";
+                if (!personDto.FirstName.IsNullOrEmpty()) str += $"{personDto.FirstName} ";
+
+                if (!personDto.LastName.IsNullOrEmpty()) str += $"{personDto.LastName}";
+
+                return str;
+            }
+        }
 
         public bool EditModeEnabled
         {

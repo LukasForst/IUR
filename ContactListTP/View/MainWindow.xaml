@@ -37,9 +37,15 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}" SelectedIndex="{Binding SelectedContactItemIndex}"
+            <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}"
+                     SelectedIndex="{Binding SelectedContactItemIndex}"
                      SelectedItem="{Binding SelectedContactItem}"
-                     ItemTemplate="{StaticResource ContactListItemTemplate}" MinWidth="120" />
+                     ItemTemplate="{StaticResource ContactListItemTemplate}"
+                     MinWidth="120"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch" />
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -61,8 +67,11 @@
 
                 </Grid.Style>
 
-                <Label Grid.Row="0" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}"
-                       VerticalAlignment="Stretch" />
+                <ScrollViewer Grid.Row="0" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Hidden" />
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
