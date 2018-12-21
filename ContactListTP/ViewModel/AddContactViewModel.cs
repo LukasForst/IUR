@@ -5,12 +5,12 @@ namespace ContactListTP.ViewModel
 {
     public class AddContactViewModel : ViewModelBase
     {
+        private string address = string.Empty;
+        private string birthDay = string.Empty;
+        private string emailAddress = string.Empty;
         private string firstName = string.Empty;
         private string lastName = string.Empty;
         private string phoneNumber = string.Empty;
-        private string emailAddress = string.Empty;
-        private string birthDay = string.Empty;
-        private string address = string.Empty;
 
         public string FirstName
         {
@@ -35,7 +35,7 @@ namespace ContactListTP.ViewModel
             get => emailAddress;
             set => (emailAddress = value).Also(() => OnPropertyChanged(nameof(EmailAddress)));
         }
-        
+
         public string BirthDayFormated
         {
             get => birthDay;
@@ -47,6 +47,5 @@ namespace ContactListTP.ViewModel
             get => address;
             set => (address = value).Also(() => OnPropertyChanged(nameof(Address)));
         }
-
     }
 }

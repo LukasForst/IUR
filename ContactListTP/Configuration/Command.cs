@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace ContactListTP.Configuration
 {
-    public class Command<T> : ICommand where T : class 
+    public class Command<T> : ICommand where T : class
     {
         private readonly Predicate<T> canExecute;
         private readonly Action<T> execute;
@@ -34,8 +34,5 @@ namespace ContactListTP.Configuration
         {
             CommandManager.InvalidateRequerySuggested();
         }
-        
-        
     }
-
 }
