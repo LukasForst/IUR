@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="525">
+        Title="Contact List" Height="625" Width="625">
+
     <Window.Resources>
         <ResourceDictionary Source="../Templates/Merged.xaml" />
     </Window.Resources>
+
     <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Menu Width="Auto" Height="20" Background="White" DockPanel.Dock="Top">
+        <Menu Width="Auto" Height="20" Background="White">
             <MenuItem Header="_Refresh" Command="{Binding RefreshListCommand}" />
             <MenuItem Header="_Add New" Command="{Binding AddCommand}" />
             <MenuItem Header="_Delete" Command="{Binding DeleteCommand}">
@@ -44,7 +46,7 @@
                      SelectedIndex="{Binding SelectedContactItemIndex}"
                      SelectedItem="{Binding SelectedContactItem}"
                      ItemTemplate="{StaticResource ContactListItemTemplate}"
-                     MinWidth="120"
+                     Width="150"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      VerticalAlignment="Stretch"
