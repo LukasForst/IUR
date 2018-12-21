@@ -695,3 +695,5 @@ client_id.json
 *.pdf
 
 *.zip
+
+log.txt
