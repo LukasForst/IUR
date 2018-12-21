@@ -13,18 +13,34 @@
         <Setter Property="Background">
             <Setter.Value>White</Setter.Value>
         </Setter>
+        <Setter Property="HorizontalAlignment">
+            <Setter.Value>
+                Stretch
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MaxWidth">
+            <Setter.Value>
+                300
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MinWidth">
+            <Setter.Value>
+                80
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <DataTemplate x:Key="ContactDetailTemplate" DataType="viewModel:ContactDetailViewModel">
+
         <Grid Margin="10" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="{Binding PhotoUrl}" MaxWidth="100" MaxHeight="100" HorizontalAlignment="Center" />
+            <Image Grid.Row="0" Source="{Binding PhotoUrl}" MaxWidth="150" MaxHeight="150" HorizontalAlignment="Center" />
 
-            <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Center">
+            <Grid Grid.Row="1" Margin="10" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

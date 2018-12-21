@@ -42,9 +42,10 @@ namespace ContactListTP.View
             {
                 Log.Error("Google API connection failed!", googleException.OriginalException);
                 var result = MessageBox.Show(
-                    $"There are problems with Google API. \nWould you like to restart application?\n\n{googleException.OriginalException.Message}",
+                    $"There are problems with Google API. Shutdown app?\n\n{googleException.OriginalException.Message}",
                     "Google API error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if (result != MessageBoxResult.Yes) Current.Shutdown();
+                if (result == MessageBoxResult.Yes) Current.Shutdown();
+                else e.Handled = true;
             }
             else
             {
