@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -30,14 +31,30 @@ namespace ContactListTP.ViewModel
         public int SelectedContactItemIndex
         {
             get => selectedContactItemIndex;
-            set => SetProperty(ref selectedContactItemIndex, value);
+            set
+            {
+                SetProperty(ref selectedContactItemIndex, value);
+                OnPropertyChanged(nameof(LastItemSelected));
+            }
         }
+
+        public bool LastItemSelected => SelectedContactItemIndex == ContactList.Count - 1;
 
         public ContactDetailViewModel SelectedContactItem
         {
             get => selectedContactItem;
             set => SetProperty(ref selectedContactItem, value);
         }
+
+        public Command<ContactListViewModel> NextCommand => new Command<ContactListViewModel>(_ =>
+        {
+            if (SelectedContactItemIndex + 1 < ContactList.Count) SelectedContactItemIndex++;
+        });
+
+        public Command<ContactListViewModel> PreviousCommand => new Command<ContactListViewModel>(_ =>
+        {
+            if (SelectedContactItemIndex - 1 >= 0) SelectedContactItemIndex--;
+        });
 
         public Command<ContactListViewModel> RefreshListCommand => new Command<ContactListViewModel>(_ => UpdateContactList());
 
