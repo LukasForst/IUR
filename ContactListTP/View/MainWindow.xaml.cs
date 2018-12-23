@@ -1,4 +1,5 @@
-﻿using ContactListTP.ViewModel;
+﻿using System.Windows.Input;
+using ContactListTP.ViewModel;
 
 namespace ContactListTP.View
 {
@@ -12,6 +13,25 @@ namespace ContactListTP.View
         {
             DataContext = vm;
             InitializeComponent();
+        }
+
+        private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Down:
+                    ((ContactListViewModel) DataContext).NextCommand.Execute(null);
+                    break;
+                case Key.Up:
+                    ((ContactListViewModel) DataContext).PreviousCommand.Execute(null);
+                    break;
+                case Key.Right:
+                    ((ContactListViewModel) DataContext).NextCommand.Execute(null);
+                    break;
+                case Key.Left:
+                    ((ContactListViewModel) DataContext).PreviousCommand.Execute(null);
+                    break;
+            }
         }
     }
 }

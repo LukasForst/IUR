@@ -27,7 +27,7 @@ namespace ContactListTP.Configuration
 
         public void Execute(object parameter)
         {
-            execute((T) parameter);
+            if (CanExecute(parameter)) execute((T) parameter);
         }
 
         public void RaiseCanExecuteChanged()

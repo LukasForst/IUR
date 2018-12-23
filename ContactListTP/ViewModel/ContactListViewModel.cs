@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Data;
 using Common.Extensions;
 using ContactListTP.Configuration;
@@ -21,7 +20,7 @@ namespace ContactListTP.ViewModel
         private string _searchedText = string.Empty;
         private ContactDetailViewModel selectedContactItem;
 
-        private int selectedContactItemIndex;
+        private int selectedContactItemIndex = -1;
 
 
         public ContactListViewModel(ContactListProvider contactListProvider)
@@ -33,7 +32,7 @@ namespace ContactListTP.ViewModel
                 return contactDetail.FirstName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase) ||
                        contactDetail.LastName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase);
             };
-            UpdateContactList();
+//            UpdateContactList();
         }
 
         public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();
@@ -44,7 +43,9 @@ namespace ContactListTP.ViewModel
             set
             {
                 SetProperty(ref _searchedText, value);
-                CollectionViewSource.GetDefaultView(ContactList).Refresh();
+                var view = CollectionViewSource.GetDefaultView(ContactList);
+                view.Refresh();
+                if (!_searchedText.IsNullOrEmpty() && !view.IsEmpty) SelectedContactItemIndex = 0;
             }
         }
 
@@ -66,15 +67,11 @@ namespace ContactListTP.ViewModel
             set => SetProperty(ref selectedContactItem, value);
         }
 
-        public Command<ContactListViewModel> NextCommand => new Command<ContactListViewModel>(_ =>
-        {
-            if (SelectedContactItemIndex + 1 < ContactList.Count) SelectedContactItemIndex++;
-        });
+        public Command<ContactListViewModel> NextCommand =>
+            new Command<ContactListViewModel>(_ => SelectedContactItemIndex++, _ => SelectedContactItemIndex + 1 < ContactList.Count);
 
-        public Command<ContactListViewModel> PreviousCommand => new Command<ContactListViewModel>(_ =>
-        {
-            if (SelectedContactItemIndex - 1 >= 0) SelectedContactItemIndex--;
-        });
+        public Command<ContactListViewModel> PreviousCommand =>
+            new Command<ContactListViewModel>(_ => SelectedContactItemIndex--, _ => SelectedContactItemIndex - 1 >= 0);
 
         public Command<ContactListViewModel> RefreshListCommand => new Command<ContactListViewModel>(_ => UpdateContactList());
 
@@ -91,8 +88,10 @@ namespace ContactListTP.ViewModel
 
         public Command<ContactListViewModel> SaveCommand => new Command<ContactListViewModel>(_ =>
         {
-            contactListProvider.SaveContact(SelectedContactItem).Also(UpdateContactList);
-            MessageBox.Show("Contact successfully saved!", "Contact save", MessageBoxButton.OK, MessageBoxImage.Information);
+            var previouslySelectedItem = contactListProvider.SaveContact(SelectedContactItem);
+            ContactList.Remove(SelectedContactItem);
+            UpdateContactList(new List<ContactDetailViewModel>(ContactList) {previouslySelectedItem});
+            SelectedContactItem = previouslySelectedItem;
         });
 
 

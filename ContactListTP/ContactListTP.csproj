@@ -127,6 +127,7 @@
   <ItemGroup>
       <Page Include="Styles\ArrowButtonStyle.xaml" />
       <Page Include="Styles\ContactDetailAnimation.xaml"/>
+      <Page Include="Styles\RefreshButtonStyle.xaml"/>
       <Page Include="Styles\TextBoxStyle.xaml" />
       <Page Include="Templates\ContactDetailTemplate.xaml" />
       <Page Include="Templates\ContactListItemTemplate.xaml" />
@@ -140,6 +141,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
       <Content Include="Resources\default_img.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\refresh.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
   </ItemGroup>
