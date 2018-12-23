@@ -33,6 +33,7 @@ namespace ContactListTP.ViewModel
                 return contactDetail.FirstName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase) ||
                        contactDetail.LastName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase);
             };
+            UpdateContactList();
         }
 
         public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();

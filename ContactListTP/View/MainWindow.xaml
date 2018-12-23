@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
+        xmlns:customComponents="clr-namespace:ContactListTP.Components"
         xmlns:converters="clr-namespace:ContactListTP.Converters"
         mc:Ignorable="d"
         Title="Contact List" Height="625" Width="625">
@@ -13,6 +14,7 @@
                 <ResourceDictionary Source="../Templates/ContactDetailTemplate.xaml" />
                 <ResourceDictionary Source="../Templates/ContactListItemTemplate.xaml" />
                 <ResourceDictionary Source="../Styles/ArrowButtonStyle.xaml" />
+                <ResourceDictionary Source="../Styles/ContactDetailAnimation.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
         </ResourceDictionary>
@@ -126,11 +128,9 @@
                     </Button.Style>
                 </Button>
 
-                <ScrollViewer Grid.Row="0" Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}"
-                              VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch"
-                              VerticalScrollBarVisibility="Disabled"
-                              HorizontalScrollBarVisibility="Disabled" />
+                <customComponents:ContentAwareScrollViewer Grid.Row="0" Grid.Column="1" Content="{Binding SelectedContactItem}"
+                                                           ContentTemplate="{StaticResource ContactDetailTemplate}"
+                                                           Style="{StaticResource ContactDetailAnimationStyle}" />
 
                 <Button Grid.Row="0" Grid.Column="2" Command="{Binding NextCommand}">
                     <Polygon Points="0,0 16,10 0,20" Stroke="Black" Fill="Black" />

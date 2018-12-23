@@ -68,6 +68,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+      <Compile Include="Components\ContentAwareScrollViewer.cs"/>
       <Compile Include="Configuration\Command.cs" />
       <Compile Include="Configuration\ViewModelBase.cs" />
       <Compile Include="Converters\InverseBooleanConverter.cs" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
       <Page Include="Styles\ArrowButtonStyle.xaml" />
+      <Page Include="Styles\ContactDetailAnimation.xaml"/>
       <Page Include="Styles\TextBoxStyle.xaml" />
       <Page Include="Templates\ContactDetailTemplate.xaml" />
       <Page Include="Templates\ContactListItemTemplate.xaml" />
