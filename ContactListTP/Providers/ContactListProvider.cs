@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Common.Dto;
 using Common.Extensions;
 using ContactListTP.Extensions;
 using ContactListTP.ViewModel;
 using IurGoogleApi.Contacts;
+using log4net;
 
 namespace ContactListTP.Providers
 {
     public class ContactListProvider
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly ContactsProvider contactsProvider;
 
         public ContactListProvider(ContactsProvider contactsProvider)
@@ -37,7 +41,10 @@ namespace ContactListTP.Providers
 
         public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
         {
-            contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
+            if (contactToRemove.GetPersonDto()?.GoogleId != null)
+                contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
+            else
+                Log.Warn("Contact could not be removed, because it is not saved!");
             return BuildContactList();
         }
 

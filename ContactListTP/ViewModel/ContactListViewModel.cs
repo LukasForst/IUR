@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Data;
 using Common.Extensions;
 using ContactListTP.Configuration;
 using ContactListTP.Providers;
@@ -16,6 +17,8 @@ namespace ContactListTP.ViewModel
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ContactListProvider contactListProvider;
+
+        private string _searchedText = string.Empty;
         private ContactDetailViewModel selectedContactItem;
 
         private int selectedContactItemIndex;
@@ -24,9 +27,25 @@ namespace ContactListTP.ViewModel
         public ContactListViewModel(ContactListProvider contactListProvider)
         {
             this.contactListProvider = contactListProvider;
+            CollectionViewSource.GetDefaultView(ContactList).Filter = o =>
+            {
+                var contactDetail = (ContactDetailViewModel) o;
+                return contactDetail.FirstName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase) ||
+                       contactDetail.LastName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase);
+            };
         }
 
         public ObservableCollection<ContactDetailViewModel> ContactList { get; set; } = new ObservableCollection<ContactDetailViewModel>();
+
+        public string SearchedText
+        {
+            get => _searchedText;
+            set
+            {
+                SetProperty(ref _searchedText, value);
+                CollectionViewSource.GetDefaultView(ContactList).Refresh();
+            }
+        }
 
         public int SelectedContactItemIndex
         {

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ContactListTP.ViewModel"
         xmlns:converters="clr-namespace:ContactListTP.Converters"
-
         mc:Ignorable="d"
         Title="Contact List" Height="625" Width="625">
     <Window.Resources>
@@ -15,8 +14,7 @@
                 <ResourceDictionary Source="../Templates/ContactListItemTemplate.xaml" />
                 <ResourceDictionary Source="../Styles/ArrowButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:MultiValueEqualityConverter x:Key="MultiValueEqualityConverter" />
-            <converters:MinusOneConverter x:Key="MinusOneConverter" />
+            <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -51,15 +49,39 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" ItemsSource="{Binding ContactList}"
-                     SelectedIndex="{Binding SelectedContactItemIndex}"
-                     SelectedItem="{Binding SelectedContactItem}"
-                     ItemTemplate="{StaticResource ContactListItemTemplate}"
-                     Width="150"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     VerticalAlignment="Stretch"
-                     HorizontalAlignment="Stretch" />
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0">
+                    <TextBox.Text>
+                        <Binding Path="SearchedText" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox.Text>
+
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+
+                <ListView Grid.Row="1" ItemsSource="{Binding ContactList}"
+                          SelectedIndex="{Binding SelectedContactItemIndex}"
+                          SelectedItem="{Binding SelectedContactItem}"
+                          ItemTemplate="{StaticResource ContactListItemTemplate}"
+                          Width="150"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch" />
+
+            </Grid>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -96,6 +118,9 @@
                                     <Setter Property="IsEnabled" Value="False" />
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -104,8 +129,8 @@
                 <ScrollViewer Grid.Row="0" Grid.Column="1" Content="{Binding SelectedContactItem}" ContentTemplate="{StaticResource ContactDetailTemplate}"
                               VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
-                              VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Hidden" />
+                              VerticalScrollBarVisibility="Disabled"
+                              HorizontalScrollBarVisibility="Disabled" />
 
                 <Button Grid.Row="0" Grid.Column="2" Command="{Binding NextCommand}">
                     <Polygon Points="0,0 16,10 0,20" Stroke="Black" Fill="Black" />
@@ -114,6 +139,9 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding LastItemSelected}" Value="True">
                                     <Setter Property="IsEnabled" Value="False" />
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
                                     <Setter Property="Visibility" Value="Hidden" />
                                 </DataTrigger>
                             </Style.Triggers>

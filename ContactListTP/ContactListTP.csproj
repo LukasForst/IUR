@@ -73,6 +73,7 @@
       <Compile Include="Converters\InverseBooleanConverter.cs" />
       <Compile Include="Converters\MinusOneConverter.cs" />
       <Compile Include="Converters\MultiValueEqualityConverter.cs" />
+      <Compile Include="Converters\StringNotEmptyConverter.cs"/>
       <Compile Include="Extensions\Extensions.cs" />
       <Compile Include="Program.cs" />
       <Compile Include="Providers\ContactListProvider.cs" />
