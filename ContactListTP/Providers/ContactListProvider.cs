@@ -39,13 +39,12 @@ namespace ContactListTP.Providers
             return saved;
         }
 
-        public IReadOnlyCollection<ContactDetailViewModel> RemoveContact(ContactDetailViewModel contactToRemove)
+        public void RemoveContact(ContactDetailViewModel contactToRemove)
         {
             if (contactToRemove.GetPersonDto()?.GoogleId != null)
                 contactsProvider.RemoveContact(contactToRemove.GetPersonDto());
             else
                 Log.Warn("Contact could not be removed, because it is not saved!");
-            return BuildContactList();
         }
 
         public ContactDetailViewModel CreateEmpty()

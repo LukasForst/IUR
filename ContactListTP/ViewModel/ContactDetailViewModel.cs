@@ -14,6 +14,7 @@ namespace ContactListTP.ViewModel
         public ContactDetailViewModel(IPersonDto personDto)
         {
             this.personDto = new PersonDto(personDto);
+            UpdateModelFromDto();
         }
 
         public string DisplayedName
@@ -21,9 +22,9 @@ namespace ContactListTP.ViewModel
             get
             {
                 var str = "";
-                if (!personDto.FirstName.IsNullOrEmpty()) str += $"{personDto.FirstName} ";
+                if (!FirstName.IsNullOrEmpty()) str += $"{FirstName} ";
 
-                if (!personDto.LastName.IsNullOrEmpty()) str += $"{personDto.LastName}";
+                if (!LastName.IsNullOrEmpty()) str += $"{LastName}";
 
                 return str;
             }
@@ -35,56 +36,89 @@ namespace ContactListTP.ViewModel
             set => SetProperty(ref editModeEnabled, value);
         }
 
+        private string _firstName;
+
         public string FirstName
         {
-            get => personDto.FirstName;
-            set => (personDto.FirstName = ValidateAndReturnValue(value, personDto.FirstName)).Also(() =>
+            get => _firstName;
+            set => (_firstName = ValidateAndReturnValue(value?.Trim(), _firstName)).Also(() =>
             {
                 OnPropertyChanged(nameof(FirstName));
                 OnPropertyChanged(nameof(DisplayedName));
             });
         }
 
+        private string _lastName;
+
         public string LastName
         {
-            get => personDto.LastName;
-            set => (personDto.LastName = ValidateAndReturnValue(value, personDto.LastName)).Also(() =>
+            get => _lastName;
+            set => (_lastName = ValidateAndReturnValue(value?.Trim(), _lastName)).Also(() =>
             {
                 OnPropertyChanged(nameof(LastName));
                 OnPropertyChanged(nameof(DisplayedName));
             });
         }
 
+        private string _phoneNumber;
+
         public string PhoneNumber
         {
-            get => personDto.PhoneNumber;
-            set => (personDto.PhoneNumber = ValidateAndReturnValue(value, personDto.PhoneNumber)).Also(() => OnPropertyChanged(nameof(PhoneNumber)));
+            get => _phoneNumber;
+            set => SetProperty(ref _phoneNumber, value?.Trim());
         }
+
+        private string _emailAddress;
 
         public string EmailAddress
         {
-            get => personDto.EmailAddress;
-            set => (personDto.EmailAddress = ValidateAndReturnValue(value, personDto.EmailAddress)).Also(() => OnPropertyChanged(nameof(EmailAddress)));
+            get => _emailAddress;
+            set => SetProperty(ref _emailAddress, value?.Trim());
         }
 
         public string PhotoUrl => personDto.PhotoUrl.IsNullOrEmpty() ? null : personDto.PhotoUrl;
 
+        private string _birthDayFormatted;
+
         public string BirthDayFormatted
         {
-            get => personDto.BirthDayFormatted;
-            set => (personDto.BirthDayFormatted = ValidateAndReturnValue(value, personDto.BirthDayFormatted))
-                .Also(() => OnPropertyChanged(nameof(BirthDayFormatted)));
+            get => _birthDayFormatted;
+            set => SetProperty(ref _birthDayFormatted, value?.Trim());
         }
+
+        private string _address;
 
         public string Address
         {
-            get => personDto.Address;
-            set => (personDto.Address = ValidateAndReturnValue(value, personDto.Address)).Also(() => OnPropertyChanged(nameof(Address)));
+            get => _address;
+            set => SetProperty(ref _address, value?.Trim());
         }
 
         public IPersonDto GetPersonDto()
         {
             return new PersonDto(personDto);
+        }
+
+        public void ApplyChangeSet()
+        {
+            personDto.FirstName = FirstName;
+            personDto.LastName = LastName;
+            personDto.PhoneNumber = PhoneNumber;
+            personDto.EmailAddress = EmailAddress;
+            personDto.BirthDayFormatted = BirthDayFormatted;
+            personDto.Address = Address;
+        }
+
+        public Command<ContactListViewModel> RevertChanges => new Command<ContactListViewModel>(_ => UpdateModelFromDto(), _ => personDto != null);
+
+        private void UpdateModelFromDto()
+        {
+            FirstName = personDto.FirstName;
+            LastName = personDto.LastName;
+            PhoneNumber = personDto.PhoneNumber;
+            EmailAddress = personDto.EmailAddress;
+            BirthDayFormatted = personDto.BirthDayFormatted;
+            Address = personDto.Address;
         }
 
         private string ValidateAndReturnValue(string valueToSet, string previousValue)

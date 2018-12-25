@@ -169,11 +169,14 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <CheckBox Grid.Column="0" Content="Edit Enabled" IsChecked="{Binding SelectedContactItem.EditModeEnabled}" Margin="5,1,1,5"
                               VerticalAlignment="Center" />
                     <Button Grid.Column="1" Content="Save" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SaveCommand}" Width="50"
+                            Margin="5,1,1,5" VerticalAlignment="Center" />
+                    <Button Grid.Column="2" Content="Revert" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SelectedContactItem.RevertChanges}" Width="50"
                             Margin="5,1,1,5" VerticalAlignment="Center" />
                 </Grid>
             </Grid>

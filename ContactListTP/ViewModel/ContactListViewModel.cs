@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Data;
@@ -29,7 +30,7 @@ namespace ContactListTP.ViewModel
             CollectionViewSource.GetDefaultView(ContactList).Filter = o =>
             {
                 var contactDetail = (ContactDetailViewModel) o;
-                return contactDetail.FirstName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase) ||
+                return SearchedText.IsNullOrEmpty() || contactDetail.FirstName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase) ||
                        contactDetail.LastName.Contains(SearchedText, StringComparison.OrdinalIgnoreCase);
             };
 //            UpdateContactList();
@@ -43,11 +44,12 @@ namespace ContactListTP.ViewModel
             set
             {
                 SetProperty(ref _searchedText, value);
-                var view = CollectionViewSource.GetDefaultView(ContactList);
-                view.Refresh();
-                if (!_searchedText.IsNullOrEmpty() && !view.IsEmpty) SelectedContactItemIndex = 0;
+                View.Refresh();
+                if (!_searchedText.IsNullOrEmpty() && !View.IsEmpty) SelectedContactItemIndex = 0;
             }
         }
+
+        private ICollectionView View => CollectionViewSource.GetDefaultView(ContactList);
 
         public int SelectedContactItemIndex
         {
@@ -76,7 +78,13 @@ namespace ContactListTP.ViewModel
         public Command<ContactListViewModel> RefreshListCommand => new Command<ContactListViewModel>(_ => UpdateContactList());
 
         public Command<ContactListViewModel> DeleteCommand =>
-            new Command<ContactListViewModel>(_ => contactListProvider.RemoveContact(SelectedContactItem).Also(UpdateContactList));
+            new Command<ContactListViewModel>(_ =>
+            {
+                contactListProvider.RemoveContact(SelectedContactItem);
+                ContactList.Remove(SelectedContactItem);
+                SelectedContactItem = null;
+                SelectedContactItemIndex = -1;
+            });
 
         public Command<ContactListViewModel> AddCommand => new Command<ContactListViewModel>(_ =>
         {
@@ -88,6 +96,7 @@ namespace ContactListTP.ViewModel
 
         public Command<ContactListViewModel> SaveCommand => new Command<ContactListViewModel>(_ =>
         {
+            SelectedContactItem.ApplyChangeSet();
             var previouslySelectedItem = contactListProvider.SaveContact(SelectedContactItem);
             ContactList.Remove(SelectedContactItem);
             UpdateContactList(new List<ContactDetailViewModel>(ContactList) {previouslySelectedItem});
@@ -97,8 +106,6 @@ namespace ContactListTP.ViewModel
 
         private void UpdateContactList(IReadOnlyCollection<ContactDetailViewModel> newData = null)
         {
-            SelectedContactItem = null;
-            SelectedContactItemIndex = -1;
             ContactList.Clear();
             if (newData == null) newData = contactListProvider.BuildContactList();
             newData.OrderBy(x => x.DisplayedName).ForEach(x => ContactList.Add(x));
