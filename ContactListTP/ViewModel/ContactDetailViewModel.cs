@@ -9,6 +9,18 @@ namespace ContactListTP.ViewModel
         private const string DefaultDisplayString = "n/a";
         private readonly PersonDto personDto;
 
+        private string _address;
+
+        private string _birthDayFormatted;
+
+        private string _emailAddress;
+
+        private string _firstName;
+
+        private string _lastName;
+
+        private string _phoneNumber;
+
         private bool editModeEnabled;
 
         public ContactDetailViewModel(IPersonDto personDto)
@@ -36,8 +48,6 @@ namespace ContactListTP.ViewModel
             set => SetProperty(ref editModeEnabled, value);
         }
 
-        private string _firstName;
-
         public string FirstName
         {
             get => _firstName;
@@ -47,8 +57,6 @@ namespace ContactListTP.ViewModel
                 OnPropertyChanged(nameof(DisplayedName));
             });
         }
-
-        private string _lastName;
 
         public string LastName
         {
@@ -60,15 +68,11 @@ namespace ContactListTP.ViewModel
             });
         }
 
-        private string _phoneNumber;
-
         public string PhoneNumber
         {
             get => _phoneNumber;
             set => SetProperty(ref _phoneNumber, value?.Trim());
         }
-
-        private string _emailAddress;
 
         public string EmailAddress
         {
@@ -78,21 +82,19 @@ namespace ContactListTP.ViewModel
 
         public string PhotoUrl => personDto.PhotoUrl.IsNullOrEmpty() ? null : personDto.PhotoUrl;
 
-        private string _birthDayFormatted;
-
         public string BirthDayFormatted
         {
             get => _birthDayFormatted;
             set => SetProperty(ref _birthDayFormatted, value?.Trim());
         }
 
-        private string _address;
-
         public string Address
         {
             get => _address;
             set => SetProperty(ref _address, value?.Trim());
         }
+
+        public Command<ContactListViewModel> RevertChanges => new Command<ContactListViewModel>(_ => UpdateModelFromDto(), _ => personDto != null);
 
         public IPersonDto GetPersonDto()
         {
@@ -108,8 +110,6 @@ namespace ContactListTP.ViewModel
             personDto.BirthDayFormatted = BirthDayFormatted;
             personDto.Address = Address;
         }
-
-        public Command<ContactListViewModel> RevertChanges => new Command<ContactListViewModel>(_ => UpdateModelFromDto(), _ => personDto != null);
 
         private void UpdateModelFromDto()
         {
