@@ -51,7 +51,7 @@ namespace ContactListTP.ViewModel
         public string FirstName
         {
             get => _firstName;
-            set => (_firstName = ValidateAndReturnValue(value?.Trim(), _firstName)).Also(() =>
+            set => (_firstName = ValidateAndReturnValue(value, _firstName)).Also(() =>
             {
                 OnPropertyChanged(nameof(FirstName));
                 OnPropertyChanged(nameof(DisplayedName));
@@ -61,7 +61,7 @@ namespace ContactListTP.ViewModel
         public string LastName
         {
             get => _lastName;
-            set => (_lastName = ValidateAndReturnValue(value?.Trim(), _lastName)).Also(() =>
+            set => (_lastName = ValidateAndReturnValue(value, _lastName)).Also(() =>
             {
                 OnPropertyChanged(nameof(LastName));
                 OnPropertyChanged(nameof(DisplayedName));
@@ -71,13 +71,13 @@ namespace ContactListTP.ViewModel
         public string PhoneNumber
         {
             get => _phoneNumber;
-            set => SetProperty(ref _phoneNumber, value?.Trim());
+            set => SetProperty(ref _phoneNumber, value);
         }
 
         public string EmailAddress
         {
             get => _emailAddress;
-            set => SetProperty(ref _emailAddress, value?.Trim());
+            set => SetProperty(ref _emailAddress, value);
         }
 
         public string PhotoUrl => personDto.PhotoUrl.IsNullOrEmpty() ? null : personDto.PhotoUrl;
@@ -85,13 +85,13 @@ namespace ContactListTP.ViewModel
         public string BirthDayFormatted
         {
             get => _birthDayFormatted;
-            set => SetProperty(ref _birthDayFormatted, value?.Trim());
+            set => SetProperty(ref _birthDayFormatted, value);
         }
 
         public string Address
         {
             get => _address;
-            set => SetProperty(ref _address, value?.Trim());
+            set => SetProperty(ref _address, value);
         }
 
         public Command<ContactListViewModel> RevertChanges => new Command<ContactListViewModel>(_ => UpdateModelFromDto(), _ => personDto != null);
