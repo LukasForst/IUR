@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Data;
 using Common.Extensions;
 using ContactListTP.Configuration;
@@ -17,11 +18,11 @@ namespace ContactListTP.ViewModel
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ContactListProvider contactListProvider;
-
         private string _searchedText = string.Empty;
-        private ContactDetailViewModel selectedContactItem;
 
-        private int selectedContactItemIndex = -1;
+        private int _selectedContactItemIndex = -1;
+
+        private ContactDetailViewModel selectedContactItem;
 
 
         public ContactListViewModel(ContactListProvider contactListProvider)
@@ -53,10 +54,10 @@ namespace ContactListTP.ViewModel
 
         public int SelectedContactItemIndex
         {
-            get => selectedContactItemIndex;
+            get => _selectedContactItemIndex;
             set
             {
-                SetProperty(ref selectedContactItemIndex, value);
+                SetProperty(ref _selectedContactItemIndex, value);
                 OnPropertyChanged(nameof(LastItemSelected));
             }
         }
@@ -80,6 +81,12 @@ namespace ContactListTP.ViewModel
         public Command<ContactListViewModel> DeleteCommand =>
             new Command<ContactListViewModel>(_ =>
             {
+                var result = MessageBox.Show(
+                    $"Do you really want to delete contact {SelectedContactItem.DisplayedName}?",
+                    "Delete contact",
+                    MessageBoxButton.YesNo);
+                if (result != MessageBoxResult.Yes) return;
+
                 contactListProvider.RemoveContact(SelectedContactItem);
                 ContactList.Remove(SelectedContactItem);
                 SelectedContactItem = null;

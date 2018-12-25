@@ -5,6 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Styles/TextBoxStyle.xaml" />
+        <ResourceDictionary Source="../Resources/Images.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -22,11 +23,7 @@
                 </Grid.RowDefinitions>
                 <Image Grid.Row="0" MaxWidth="150" MaxHeight="150" HorizontalAlignment="Center">
                     <Image.Source>
-                        <Binding Path="PhotoUrl">
-                            <Binding.TargetNullValue>
-                                <ImageSource>../Resources/default_img.png</ImageSource>
-                            </Binding.TargetNullValue>
-                        </Binding>
+                        <Binding Path="PhotoUrl" TargetNullValue="{StaticResource DefaultPersonImage}" />
                     </Image.Source>
                 </Image>
 
@@ -45,11 +42,13 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0">First Name: </Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBoxStyle}"
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DefaultTextBoxStyle}"
                              IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
 
                     <Label Grid.Row="1" Grid.Column="0">Last Name: </Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBoxStyle}"
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DefaultTextBoxStyle}"
                              IsReadOnly="{Binding EditModeEnabled, Converter={StaticResource InverseBooleanConverter}}" />
 
                     <Label Grid.Row="2" Grid.Column="0">E-mail: </Label>

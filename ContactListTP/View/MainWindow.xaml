@@ -7,8 +7,8 @@
         xmlns:customComponents="clr-namespace:ContactListTP.Components"
         xmlns:converters="clr-namespace:ContactListTP.Converters"
         mc:Ignorable="d"
-        KeyDown="MainWindow_OnKeyDown"
-        Title="Contact List" Height="625" Width="625">
+        KeyDown="MainWindow_OnKeyDown">
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,170 +17,207 @@
                 <ResourceDictionary Source="../Styles/ArrowButtonStyle.xaml" />
                 <ResourceDictionary Source="../Styles/ContactDetailAnimation.xaml" />
                 <ResourceDictionary Source="../Styles/RefreshButtonStyle.xaml" />
+                <ResourceDictionary Source="../Styles/CommandButtonStyle.xaml" />
+                <ResourceDictionary Source="../Styles/EditToggleStyle.xaml" />
+                <ResourceDictionary Source="../Resources/Images.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <converters:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Icon" Value="{StaticResource ContactIcon}" />
+            <Setter Property="Title" Value="Contact List" />
+            <Setter Property="Height" Value="625" />
+            <Setter Property="Width" Value="625" />
+        </Style>
+    </Window.Style>
+
     <Grid d:DataContext="{d:DesignInstance Type=viewModel:ContactListViewModel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-        <Menu Width="Auto" Height="20" Background="White">
-            <MenuItem Header="_Refresh" Command="{Binding RefreshListCommand}" />
-            <MenuItem Header="_Add New" Command="{Binding AddCommand}" />
-            <MenuItem Header="_Delete" Command="{Binding DeleteCommand}">
-                <MenuItem.Style>
-                    <Style TargetType="MenuItem">
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding RefreshListCommand}" Style="{StaticResource CommandButtonStyle}" ToolTip="Fetch contacts from Google">
+                <Image Source="{StaticResource RefreshIcon}" />
+            </Button>
+            <Button Grid.Column="1" Command="{Binding AddCommand}" Style="{StaticResource CommandButtonStyle}" ToolTip="Add new Contact!">
+                <Image Source="{StaticResource AddIcon}" />
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+
+            <ToggleButton Grid.Column="0" IsChecked="{Binding SelectedContactItem.EditModeEnabled}"
+                          Style="{StaticResource EditToggleStyle}"
+                          ToolTip="Enable edit mode">
+                <Image Source="{StaticResource EditIcon}" />
+            </ToggleButton>
+
+            <Button Grid.Column="1" Command="{Binding SaveCommand}"
+                    Visibility="{Binding SelectedContactItem.EditModeEnabled, Converter={StaticResource VisibilityConverter}}"
+                    Style="{StaticResource CommandButtonStyle}"
+                    ToolTip="Save contact">
+                <Image Source="{StaticResource SaveIcon}" />
+            </Button>
+
+            <Button Grid.Column="2" Command="{Binding SelectedContactItem.RevertChanges}"
+                    Visibility="{Binding SelectedContactItem.EditModeEnabled, Converter={StaticResource VisibilityConverter}}"
+                    Style="{StaticResource CommandButtonStyle}"
+                    HorizontalAlignment="Left"
+                    ToolTip="Revert changes">
+                <Image Source="{StaticResource RevertIcon}" />
+            </Button>
+
+            <Button Grid.Column="3" Command="{Binding DeleteCommand}"
+                    Style="{StaticResource CommandButtonStyle}"
+                    HorizontalAlignment="Right"
+                    ToolTip="Delete contact">
+                <Image Source="{StaticResource DeleteIcon}" />
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" ToolTip="Search contacts!" FontStyle="Italic">
+                <TextBox.Text>
+                    <Binding Path="SearchedText" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                </TextBox.Text>
+
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
-                                <Setter Property="IsEnabled" Value="False" />
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </MenuItem.Style>
-            </MenuItem>
-        </Menu>
+                </TextBox.Style>
+            </TextBox>
 
-        <Grid Grid.Row="1">
+            <ListView Grid.Row="1" ItemsSource="{Binding ContactList}"
+                      SelectedIndex="{Binding SelectedContactItemIndex}"
+                      SelectedItem="{Binding SelectedContactItem}"
+                      ItemTemplate="{StaticResource ContactListItemTemplate}"
+                      MinWidth="150"
+                      Width="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch" />
+
+        </Grid>
+
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding RefreshListCommand}" ToolTip="Fetch data from Google">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource RefreshButtonStyle}">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-                <TextBox Grid.Row="0">
-                    <TextBox.Text>
-                        <Binding Path="SearchedText" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
-                    </TextBox.Text>
+            <Button Grid.Column="0" Command="{Binding PreviousCommand}" ToolTip="Go to previous contact">
+                <Polygon Points="16,0 0,10, 16,20" Stroke="Black" Fill="Black" />
 
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-
-                <ListView Grid.Row="1" ItemsSource="{Binding ContactList}"
-                          SelectedIndex="{Binding SelectedContactItemIndex}"
-                          SelectedItem="{Binding SelectedContactItem}"
-                          ItemTemplate="{StaticResource ContactListItemTemplate}"
-                          MinWidth="150"
-                          Width="Auto"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Stretch" />
-
-            </Grid>
-
-            <Button Grid.Column="1" Command="{Binding RefreshListCommand}">
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource RefreshButtonStyle}">
-                        <Setter Property="Visibility" Value="Hidden" />
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButtonStyle}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
-                                <Setter Property="Visibility" Value="Visible" />
+                            <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="0">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <customComponents:ContentAwareScrollViewer Grid.Column="1" Content="{Binding SelectedContactItem}"
+                                                       ContentTemplate="{StaticResource ContactDetailTemplate}"
+                                                       Style="{StaticResource ContactDetailAnimationStyle}" />
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid.Style>
-                    <Style TargetType="Grid">
+            <Button Grid.Column="2" Command="{Binding NextCommand}" ToolTip="Go to next contact">
+                <Polygon Points="0,0 16,10 0,20" Stroke="Black" Fill="Black" />
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButtonStyle}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="-1">
+                            <DataTrigger Binding="{Binding LastItemSelected}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ContactList.Count}" Value="0">
+                            <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Grid.Style>
-
-                <Button Grid.Row="0" Grid.Column="0" Command="{Binding PreviousCommand}">
-                    <Polygon Points="16,0 0,10, 16,20" Stroke="Black" Fill="Black" />
-
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButtonStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedContactItemIndex}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <customComponents:ContentAwareScrollViewer Grid.Row="0" Grid.Column="1" Content="{Binding SelectedContactItem}"
-                                                           ContentTemplate="{StaticResource ContactDetailTemplate}"
-                                                           Style="{StaticResource ContactDetailAnimationStyle}" />
-
-                <Button Grid.Row="0" Grid.Column="2" Command="{Binding NextCommand}">
-                    <Polygon Points="0,0 16,10 0,20" Stroke="Black" Fill="Black" />
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ArrowButtonStyle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding LastItemSelected}" Value="True">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding  SearchedText, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <CheckBox Grid.Column="0" Content="Edit Enabled" IsChecked="{Binding SelectedContactItem.EditModeEnabled}" Margin="5,1,1,5"
-                              VerticalAlignment="Center" />
-                    <Button Grid.Column="1" Content="Save" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SaveCommand}" Width="50"
-                            Margin="5,1,1,5" VerticalAlignment="Center" />
-                    <Button Grid.Column="2" Content="Revert" IsEnabled="{Binding SelectedContactItem.EditModeEnabled}" Command="{Binding SelectedContactItem.RevertChanges}" Width="50"
-                            Margin="5,1,1,5" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                </Button.Style>
+            </Button>
         </Grid>
+
     </Grid>
 </Window>

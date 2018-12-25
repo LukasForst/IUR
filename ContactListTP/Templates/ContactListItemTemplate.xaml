@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewModel="clr-namespace:ContactListTP.ViewModel">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Resources/Images.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="ContactListItemTemplate" DataType="viewModel:ContactDetailViewModel">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -10,11 +14,7 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Stretch="Fill" Width="35" Height="35">
                 <Image.Source>
-                    <Binding Path="PhotoUrl">
-                        <Binding.TargetNullValue>
-                            <ImageSource>../Resources/default_img.png</ImageSource>
-                        </Binding.TargetNullValue>
-                    </Binding>
+                    <Binding Path="PhotoUrl" TargetNullValue="{StaticResource DefaultPersonImage}" />
                 </Image.Source>
             </Image>
 

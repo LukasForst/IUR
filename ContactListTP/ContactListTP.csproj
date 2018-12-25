@@ -75,6 +75,7 @@
       <Compile Include="Converters\MinusOneConverter.cs" />
       <Compile Include="Converters\MultiValueEqualityConverter.cs" />
       <Compile Include="Converters\StringNotEmptyConverter.cs"/>
+      <Compile Include="Converters\VisibilityConverter.cs"/>
       <Compile Include="Extensions\Extensions.cs" />
       <Compile Include="Program.cs" />
       <Compile Include="Providers\ContactListProvider.cs" />
@@ -125,8 +126,11 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+      <Page Include="Resources\Images.xaml"/>
       <Page Include="Styles\ArrowButtonStyle.xaml" />
+      <Page Include="Styles\CommandButtonStyle.xaml"/>
       <Page Include="Styles\ContactDetailAnimation.xaml"/>
+      <Page Include="Styles\EditToggleStyle.xaml"/>
       <Page Include="Styles\RefreshButtonStyle.xaml"/>
       <Page Include="Styles\TextBoxStyle.xaml" />
       <Page Include="Templates\ContactDetailTemplate.xaml" />
@@ -140,10 +144,29 @@
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+      <Content Include="Resources\add.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\contact.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\default_img.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <Content Include="Resources\delete.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\edit.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\refresh.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\refresh_s.png"/>
+      <Content Include="Resources\revert.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\save.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
   </ItemGroup>
